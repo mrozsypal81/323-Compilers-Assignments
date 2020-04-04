@@ -73,7 +73,7 @@ def checkAllRules(arg, begin):
     # Check declaration : int a; len = 3 --------------
     if availableLen >= 3:
 
-        isDeclare, resultDeclare, newBeginDeclare = isDeclaration (arg, begin)
+        isDeclare, resultDeclare, newBeginDeclare = isDeclarative (arg, begin)
 
         if isDeclare:
             newBeginDeclare = begin + 3
@@ -133,7 +133,7 @@ def getKeyValue (mydict):
 
 
 # <Declaration> -> <Type> <IDs>;        Example : int a
-def isDeclaration (arg, begin):
+def isDeclarative (arg, begin):
     myType = ['int', 'float', 'bool']
     # print('begin in isDeclaration = ', begin)
     # print('arg in isDeclaration = ')
