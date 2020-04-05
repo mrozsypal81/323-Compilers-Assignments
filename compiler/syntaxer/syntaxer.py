@@ -61,18 +61,18 @@ def getKeyValue (mydict):
     for key, value in mydict.items():
         return key, value
 
-def getSpecificKV (lexemelist,myvalue,beginval):
+def getSpecificKV (arg,myvalue,beginval):
     positionval = beginval
-    for x in range(beginval):   
+    for x in arg[beginval:]:   
         for key,value in x.items():
             if value == myvalue :
                 return key,value,positionval
         positionval = positionval + 1
     return None,None,-1
 
-def getSpecificKVreverse (lexemelist,myvalue,beginval):
+def getSpecificKVreverse (arg,myvalue,beginval):
     positionval = beginval
-    for x in  reversed(list(enumerate(range(beginval)))):  
+    for x in  arg[beginval::-1]:  
         for key,value in x.items():
             if value == myvalue :
                 return key,value,positionval
