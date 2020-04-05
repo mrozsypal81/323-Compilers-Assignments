@@ -6,38 +6,7 @@ class Syntaxer (object):
     # statemenize method - create statement list from lexemes
     def syntaxer(self):
         lexemes = list(self.lexemes[0])
-        # lexemes = [subject 
-        #            for lexeme in self.lexemes
-        #            for subject in lexeme]
-        # print('before while')
-        # print ('len = ', len(lexemes))
-        # print ('lexemes = ', lexemes)
-        # print()
-        # print ('lexemes[0] = ', lexemes[0])
-        # print ('list(lexemes[0]) = ', list(lexemes[0]))
-
-        # print ('lexemes[0].keys()', lexemes[0].keys())
-        # print ('list(lexemes[0].keys())', list(lexemes[0].keys()))
-        # print ('list(lexemes[0].values())', list(lexemes[0].values()))
-        # print ('list(lexemes[0].keys())[0]', list(lexemes[0].keys())[0])
-        # print ('list(lexemes[0].values())[0]', list(lexemes[0].values())[0])
-       
-        
-        # types = ['int', ]   
         begin = 0
-
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-        # print('begin before while = ', begin)
-
-
 
         print('len(lexemes) = ', len(lexemes))
 
@@ -63,14 +32,9 @@ class Syntaxer (object):
 # ==============================================
 
 def checkAllRules(arg, begin):
-    # print('My arg = ', arg)
-    # print('begin in checkAllRules = ', begin)
-    # print('len(arg) in checkAllRules = ', len(arg))
 
     availableLen = len(arg) - begin
     print('availableLen = ', availableLen)
-
-    # Check declaration : int a; len = 3 --------------
 
     isDeclare, resultDeclare, newBeginDeclare = isDeclarative (arg, begin)
 
@@ -85,56 +49,15 @@ def checkAllRules(arg, begin):
         newBeginAssign = begin + totalexplength
         return isAss, resultAssign, newBeginAssign
 
-
-
-    # if availableLen >= 4:
-    #     isDefined1, resultDefine1, newBeginDefined1 = isDefine1 (arg, begin)
-    #     isDefined2, resultDefine2, newBeginDefined2 = isDefine2 (arg, begin)
-    #     # print('isDefined1 = ', isDefined1)
-    #     # print('isDefined2 = ', isDefined2)
-
-
-    #     # Check define1 : a = 1; len = 4--------------
-    #     # isDefined1 = False
-    #     if isDefined1:
-    #         newBeginDefined1 = begin + 4
-    #         return isDefined1, resultDefine1, newBeginDefined1
-
-
-    #     # # Check define2 : a = b; len =4 --------------
-    #     # isDefined2 = False
-    #     elif isDefined2:
-    #         newBeginDefined2 = begin + 4
-
-
-    #         return isDefined2, resultDefine2, newBeginDefined2
-
-    #     else:
-    #         print ('Something go wrong1')
-    #         print ('Something go wrong')
-    #         print ('Something go wrong')
-    #         print ('Something go wrong')
-    #         print ('Something go wrong')
-    #         print ('Something go wrong')
-    #         print ('Something go wrong')
-
-
-
     else:
-        print ('Something go wrong2')
-        print ('Something go wrong')
-        print ('Something go wrong')
-        print ('Something go wrong')
-        print ('Something go wrong')
-        print ('Something go wrong')
-        print ('Something go wrong')
+        print ('Something go wrong1')
+
         begin = 99999999999999999
         return -1, -2, begin
 
 
 
 def getKeyValue (mydict):
-    # print('dict = ', mydict)
     for key, value in mydict.items():
         return key, value
 
@@ -148,44 +71,33 @@ def getSpecificKV (lexemelist,myvalue,beginval):
         
 
 
-# <Declaration> -> <Type> <IDs>;        Example : int a
+#       Example : int a
 #<Statement> -> <Declarative>
 #<Declarative> -> <Type> <id>
 def isDeclarative (arg, begin):
     myType = ['int', 'float', 'bool']
-    # print('begin in isDeclaration = ', begin)
-    # print('arg in isDeclaration = ')
-    # for i in arg:
-    #     print(f'{i}')
     print()
-
-
-    # print(f'arg[{begin}] = ', arg[begin])
-    # print(f'arg[{begin + 1}] = ', arg[begin + 1])
-    # print(f'arg[{begin + 2}] = ', arg[begin + 2])
-    # print()
 
     key0, value0 = getKeyValue(arg[begin])
     key1, value1 = getKeyValue(arg[begin + 1])
     key2, value2 = getKeyValue(arg[begin + 2])
 
-    # print()
-    # print('key0   = ', key0)
-    # print('value0 = ', value0)
-    # print()
-    # print('key1   = ', key1)
-    # print('value1 = ', value1)
-    # print()
-    # print('key2   = ', key2)
-    # print('value2 = ', value2)
-    # print()
-
     if (value0 in myType) and key1 == 'IDENTIFIER' and value2 == ';':
-        result = {
-            'Token': 'Declaration',
-            'Lexeme': '',
-            'BNF': '<Declaration> -> <Type> <IDs> ;'
-        }
+        result = []
+        result.append( {
+            'Token': key0,
+            'Lexeme': value0,
+            'Grammar': '<Statement> -> <Declarative>' 
+                        '<Declarative> -> <Type> <id>',
+            'Token2': key1,
+            'Lexeme2': value1,
+            'Grammar2': '<Statement> -> <Declarative>' 
+                        '<Declarative> -> <Type> <id>',
+            'Token3': key2,
+            'Lexeme3': value2,
+            'Grammar3': '<Statement> -> <Declarative>' 
+                        '<Declarative> -> <Type> <id>'
+        })
         return True, result, begin
     else:
         return False, -1, 999999999999
@@ -195,16 +107,19 @@ def isDeclarative (arg, begin):
 #<Assign> -> <ID> = <Expression>;
 def isAssign(arg, begin):
     print("Inside Assign")
-    myType = ['int', 'float', 'bool']
 
 
     key0, value0 = getKeyValue(arg[begin])
     key1, value1 = getKeyValue(arg[begin + 1])
     key2, value2 , posval = getSpecificKV(arg,';',begin + 2)
     
-    if (value0 in myType) and key1 == 'IDENTIFIER' and value2 == ';':
+    if key0 == 'IDENTIFIER' and value1 == '=':
+        result = {
+            'Token' : 'Assign',
+            'Lexeme': ''
+        }
         isExp, resultExpress, newbegin, totaladded = isExpress (arg, begin + 2,posval)
-        result = resultExpress
+        result += resultExpress
         total = totaladded
         return isExp, result, begin, total
     else:
