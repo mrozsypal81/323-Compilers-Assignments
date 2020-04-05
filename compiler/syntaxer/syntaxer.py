@@ -189,6 +189,15 @@ def isExpress(arg,begin,posval):
         else:
             print('Expression Error at lexeme '+ begin)
 
+        isTe, resultTerm, newbegin = isTerm (arg,plusval+1,posval)
+        
+        if isTe:
+            isresult = isTe
+            begin = newbegin
+            result.extend(resultTerm)
+        else:
+            print('Expression Error at lexeme '+ begin)
+
 
     if value2 == '-':
         isExp, resultExpress, newbegin = isExpress (arg, begin ,minusval-1)
@@ -206,13 +215,22 @@ def isExpress(arg,begin,posval):
         else:
             print('Expression Error at lexeme '+ begin)
 
-    if value == None and value2 == None:
-        iste, resultterm, newbegin = isTerm (arg,begin,posval)
+        isTe, resultTerm, newbegin = isTerm (arg,minusval+1,posval)
         
-        if iste:
-            isresult = iste
+        if isTe:
+            isresult = isTe
             begin = newbegin
-            result.extend(resultterm)
+            result.extend(resultTerm)
+        else:
+            print('Expression Error at lexeme '+ begin)
+
+    if value == None and value2 == None:
+        isTe, resultTerm, newbegin = isTerm (arg,begin,posval)
+        
+        if isTe:
+            isresult = isTe
+            begin = newbegin
+            result.extend(resultTerm)
         else:
             print('Expression Error at lexeme '+ begin)
     
@@ -220,125 +238,82 @@ def isExpress(arg,begin,posval):
         return isresult,result,begin
 
 
-
+#<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>
 def isTerm(arg,begin,posval):
     print('Inside isTerm')
 
-# # <A1> -> <ID> = <NUM> ;      a = 1
-# # <Define> -> <IDs> = <NUM> ;       Example: a = 1
-# def isDefine1 (arg, begin):
-#     print()
-#     print('begin in isDefine1 = ', begin)
-#     # print('arg in isDefine1 = ')
-#     # for i in arg:
-#     #     print(f'{i}')
-#     # print()
-#     myNum = ['INT', 'FLOAT']
-#     myBool = ['true', 'false']
-
-
-#     # print(f'arg[{ begin }] = { arg[begin] }')
-#     # print(f'arg[{ begin + 1 }] = { arg[begin + 1] }')
-#     # print(f'arg[{ begin + 2 }] = { arg[begin + 2] }')
-#     # print(f'arg[{ begin + 3 }] = { arg[begin + 3] }')
-#     # print()
-
-#     key0, value0 = getKeyValue(arg[begin])
-#     key1, value1 = getKeyValue(arg[begin + 1])
-#     key2, value2 = getKeyValue(arg[begin + 2])
-#     key3, value3 = getKeyValue(arg[begin + 3])
-
-#     # print()
-#     # print('key0   = ', key0)
-#     # print('value0 = ', value0)
-#     # print()
-#     # print('key1   = ', key1)
-#     # print('value1 = ', value1)
-#     # print()
-#     # print('key2   = ', key2)
-#     # print('value2 = ', value2)
-#     # print()
-#     # print('key3   = ', key3)
-#     # print('value3 = ', value3)
-#     # print()
-
-
-#     if key0 == 'IDENTIFIER' and value1 == '=' and value2 in myBool and value3 == ';':
-#         result = {
-#             'Token': 'Define',
-#             'Lexeme': '',
-#             'BNF': '<Define> -> <Identifier>  = true/false ;'
-#         }
-#         return True, result, begin
-#     elif key0 == 'IDENTIFIER' and value1 == '=' and key2 in myNum and value3 == ';':
-#         result = {
-#             'Token': 'Define',
-#             'Lexeme': '',
-#             'BNF': '<Define> -> <Identifier>  = number ;'
-#         }
-#         return True, result, begin
-#     else:
-#         return False, -1, 9999999999
-
-
-
-# # <A2> -> <ID> = <ID> ;       a = b
-# def isDefine2 (arg, begin):
-# # B
-# # 1
-# # n
-# # h
-# # Tr 4 n 
-
-
-#     print()
-#     # print('arg in isDefine2 = ')
-#     # for i in arg:
-#     #     print(f'{i}')
-#     # print()
-
-#     # print('begin in isDefine2 = ', begin)
-
-#     # print(f'arg[{ begin }] = { arg[begin] }')
-#     # print(f'arg[{ begin + 1 }] = { arg[begin + 1] }')
-#     # print(f'arg[{ begin + 2 }] = { arg[begin + 2] }')
-#     # print(f'arg[{ begin + 3 }] = { arg[begin + 3] }')
-#     # print()
-
-#     key0, value0 = getKeyValue(arg[begin])
-#     key1, value1 = getKeyValue(arg[begin + 1])
-#     key2, value2 = getKeyValue(arg[begin + 2])
-#     key3, value3 = getKeyValue(arg[begin + 3])
-
-#     # print()
-#     # print('key0   = ', key0)
-#     # print('value0 = ', value0)
-#     # print()
-#     # print('key1   = ', key1)
-#     # print('value1 = ', value1)
-#     # print()
-#     # print('key2   = ', key2)
-#     # print('value2 = ', value2)
-#     # print()
-#     # print('key3   = ', key3)
-#     # print('value3 = ', value3)
-#     # print()
-
-
-#     if key0 == 'IDENTIFIER' and value1 == '=' and key2 == 'IDENTIFIER' and value3 == ';':
-#         result = {
-#             'Token': 'Define2',
-#             'Lexeme': '',
-#             'BNF': '<Define2> -> <Identifier>  = <Identifier> ;'
-#         }
-#         return True, result, begin
     
-#     else:
-#         return False, -1, 9999999999
+    result = []
+    isresult = False
+
+    key, value , starval = getSpecificKVreverse(arg,'*',posval)
+    key2, value2 , divVal = getSpecificKVreverse(arg,'/',posval)
 
 
+    if value == '*':
+        isTe, resultTerm, newbegin = isTerm (arg, begin ,starval-1)
+        
+        if isTe:
+            isresult = isTe
+            begin = newbegin
+            result.extend(resultTerm)
+            result.append( {
+                'Token': key,
+                'Lexeme': value,
+                'Grammar': '<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>'
+
+            })
+        else:
+            print('Term Error at lexeme '+ begin)
+
+        isFac, resultFac, newbegin = isFactor (arg,starval+1,posval)
+        
+        if isFac:
+            isresult = isFac
+            begin = newbegin
+            result.extend(resultFac)
+        else:
+            print('Term Error at lexeme '+ begin)
 
 
+    if value2 == '/':
+        isTe, resultTerm, newbegin = isTerm (arg, begin ,divVal-1)
+        
+        if isTe:
+            isresult = isTe
+            begin = newbegin
+            result.extend(resultTerm)
+            result.append( {
+                'Token': key2,
+                'Lexeme': value2,
+                'Grammar': '<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>'
 
+            })
+        else:
+            print('Term Error at lexeme '+ begin)
 
+        isFac, resultFac, newbegin = isFactor (arg,divVal+1,posval)
+        
+        if isFac:
+            isresult = isFac
+            begin = newbegin
+            result.extend(resultFac)
+        else:
+            print('Term Error at lexeme '+ begin)
+
+    if value == None and value2 == None:
+        isFac, resultFac, newbegin = isFactor (arg,begin,posval)
+        
+        if isFac:
+            isresult = isFac
+            begin = newbegin
+            result.extend(resultFac)
+        else:
+            print('Term Error at lexeme '+ begin)
+    
+    if isresult:
+        return isresult,result,begin
+
+def isFactor (arg,begin,posval):
+    print('Inside isFactor')
 
