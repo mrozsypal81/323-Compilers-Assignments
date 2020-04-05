@@ -71,50 +71,57 @@ def checkAllRules(arg, begin):
     print('availableLen = ', availableLen)
 
     # Check declaration : int a; len = 3 --------------
-    if availableLen >= 3:
 
-        isDeclare, resultDeclare, newBeginDeclare = isDeclarative (arg, begin)
+    isDeclare, resultDeclare, newBeginDeclare = isDeclarative (arg, begin)
 
-        if isDeclare:
-            newBeginDeclare = begin + 3
-            return isDeclare, resultDeclare, newBeginDeclare
-
-
-    if availableLen >= 4:
-        isDefined1, resultDefine1, newBeginDefined1 = isDefine1 (arg, begin)
-        isDefined2, resultDefine2, newBeginDefined2 = isDefine2 (arg, begin)
-        # print('isDefined1 = ', isDefined1)
-        # print('isDefined2 = ', isDefined2)
+    if isDeclare:
+        newBeginDeclare = begin + 3
+        return isDeclare, resultDeclare, newBeginDeclare
 
 
-        # Check define1 : a = 1; len = 4--------------
-        # isDefined1 = False
-        if isDefined1:
-            newBeginDefined1 = begin + 4
-            return isDefined1, resultDefine1, newBeginDefined1
+    isAss, resultAssign, newBeginAssign, totalexplength = isAssign (arg, begin)
+
+    if isAssign:
+        newBeginAssign = begin + totalexplength
+        return isAss, resultAssign, newBeginAssign
 
 
-        # # Check define2 : a = b; len =4 --------------
-        # isDefined2 = False
-        elif isDefined2:
-            newBeginDefined2 = begin + 4
+
+    # if availableLen >= 4:
+    #     isDefined1, resultDefine1, newBeginDefined1 = isDefine1 (arg, begin)
+    #     isDefined2, resultDefine2, newBeginDefined2 = isDefine2 (arg, begin)
+    #     # print('isDefined1 = ', isDefined1)
+    #     # print('isDefined2 = ', isDefined2)
 
 
-            return isDefined2, resultDefine2, newBeginDefined2
+    #     # Check define1 : a = 1; len = 4--------------
+    #     # isDefined1 = False
+    #     if isDefined1:
+    #         newBeginDefined1 = begin + 4
+    #         return isDefined1, resultDefine1, newBeginDefined1
 
-        else:
-            print ('Something go wrong')
-            print ('Something go wrong')
-            print ('Something go wrong')
-            print ('Something go wrong')
-            print ('Something go wrong')
-            print ('Something go wrong')
-            print ('Something go wrong')
+
+    #     # # Check define2 : a = b; len =4 --------------
+    #     # isDefined2 = False
+    #     elif isDefined2:
+    #         newBeginDefined2 = begin + 4
+
+
+    #         return isDefined2, resultDefine2, newBeginDefined2
+
+    #     else:
+    #         print ('Something go wrong1')
+    #         print ('Something go wrong')
+    #         print ('Something go wrong')
+    #         print ('Something go wrong')
+    #         print ('Something go wrong')
+    #         print ('Something go wrong')
+    #         print ('Something go wrong')
 
 
 
     else:
-        print ('Something go wrong')
+        print ('Something go wrong2')
         print ('Something go wrong')
         print ('Something go wrong')
         print ('Something go wrong')
@@ -131,8 +138,19 @@ def getKeyValue (mydict):
     for key, value in mydict.items():
         return key, value
 
+def getSpecificKV (lexemelist,myvalue,beginval):
+    positionval = beginval
+    for x in range(beginval):
+        positionval = positionval + 1
+        for key,value in x.items():
+            if value == myvalue :
+                return key,value,positionval
+        
+
 
 # <Declaration> -> <Type> <IDs>;        Example : int a
+#<Statement> -> <Declarative>
+#<Declarative> -> <Type> <id>
 def isDeclarative (arg, begin):
     myType = ['int', 'float', 'bool']
     # print('begin in isDeclaration = ', begin)
@@ -172,117 +190,142 @@ def isDeclarative (arg, begin):
     else:
         return False, -1, 999999999999
   
-# <A1> -> <ID> = <NUM> ;      a = 1
-# <Define> -> <IDs> = <NUM> ;       Example: a = 1
-def isDefine1 (arg, begin):
-    print()
-    print('begin in isDefine1 = ', begin)
-    # print('arg in isDefine1 = ')
-    # for i in arg:
-    #     print(f'{i}')
-    # print()
-    myNum = ['INT', 'FLOAT']
-    myBool = ['true', 'false']
 
+#<Statement> -> <Assign>
+#<Assign> -> <ID> = <Expression>;
+def isAssign(arg, begin):
+    print("Inside Assign")
+    myType = ['int', 'float', 'bool']
 
-    # print(f'arg[{ begin }] = { arg[begin] }')
-    # print(f'arg[{ begin + 1 }] = { arg[begin + 1] }')
-    # print(f'arg[{ begin + 2 }] = { arg[begin + 2] }')
-    # print(f'arg[{ begin + 3 }] = { arg[begin + 3] }')
-    # print()
 
     key0, value0 = getKeyValue(arg[begin])
     key1, value1 = getKeyValue(arg[begin + 1])
-    key2, value2 = getKeyValue(arg[begin + 2])
-    key3, value3 = getKeyValue(arg[begin + 3])
-
-    # print()
-    # print('key0   = ', key0)
-    # print('value0 = ', value0)
-    # print()
-    # print('key1   = ', key1)
-    # print('value1 = ', value1)
-    # print()
-    # print('key2   = ', key2)
-    # print('value2 = ', value2)
-    # print()
-    # print('key3   = ', key3)
-    # print('value3 = ', value3)
-    # print()
-
-
-    if key0 == 'IDENTIFIER' and value1 == '=' and value2 in myBool and value3 == ';':
-        result = {
-            'Token': 'Define',
-            'Lexeme': '',
-            'BNF': '<Define> -> <Identifier>  = true/false ;'
-        }
-        return True, result, begin
-    elif key0 == 'IDENTIFIER' and value1 == '=' and key2 in myNum and value3 == ';':
-        result = {
-            'Token': 'Define',
-            'Lexeme': '',
-            'BNF': '<Define> -> <Identifier>  = number ;'
-        }
-        return True, result, begin
-    else:
-        return False, -1, 9999999999
-
-
-
-# <A2> -> <ID> = <ID> ;       a = b
-def isDefine2 (arg, begin):
-# B
-# 1
-# n
-# h
-# Tr 4 n 
-
-
-    print()
-    # print('arg in isDefine2 = ')
-    # for i in arg:
-    #     print(f'{i}')
-    # print()
-
-    # print('begin in isDefine2 = ', begin)
-
-    # print(f'arg[{ begin }] = { arg[begin] }')
-    # print(f'arg[{ begin + 1 }] = { arg[begin + 1] }')
-    # print(f'arg[{ begin + 2 }] = { arg[begin + 2] }')
-    # print(f'arg[{ begin + 3 }] = { arg[begin + 3] }')
-    # print()
-
-    key0, value0 = getKeyValue(arg[begin])
-    key1, value1 = getKeyValue(arg[begin + 1])
-    key2, value2 = getKeyValue(arg[begin + 2])
-    key3, value3 = getKeyValue(arg[begin + 3])
-
-    # print()
-    # print('key0   = ', key0)
-    # print('value0 = ', value0)
-    # print()
-    # print('key1   = ', key1)
-    # print('value1 = ', value1)
-    # print()
-    # print('key2   = ', key2)
-    # print('value2 = ', value2)
-    # print()
-    # print('key3   = ', key3)
-    # print('value3 = ', value3)
-    # print()
-
-
-    if key0 == 'IDENTIFIER' and value1 == '=' and key2 == 'IDENTIFIER' and value3 == ';':
-        result = {
-            'Token': 'Define2',
-            'Lexeme': '',
-            'BNF': '<Define2> -> <Identifier>  = <Identifier> ;'
-        }
-        return True, result, begin
+    key2, value2 , posval = getSpecificKV(arg,';',begin + 2)
     
+    if (value0 in myType) and key1 == 'IDENTIFIER' and value2 == ';':
+        isExp, resultExpress, newbegin, totaladded = isExpress (arg, begin + 2,posval)
+        result = resultExpress
+        total = totaladded
+        return isExp, result, begin, total
     else:
-        return False, -1, 9999999999
+        return False, -1, 999999999999
+
+def isExpress(arg,begin,posval):
+    print("Inside Expression")
+
+    
+
+# # <A1> -> <ID> = <NUM> ;      a = 1
+# # <Define> -> <IDs> = <NUM> ;       Example: a = 1
+# def isDefine1 (arg, begin):
+#     print()
+#     print('begin in isDefine1 = ', begin)
+#     # print('arg in isDefine1 = ')
+#     # for i in arg:
+#     #     print(f'{i}')
+#     # print()
+#     myNum = ['INT', 'FLOAT']
+#     myBool = ['true', 'false']
+
+
+#     # print(f'arg[{ begin }] = { arg[begin] }')
+#     # print(f'arg[{ begin + 1 }] = { arg[begin + 1] }')
+#     # print(f'arg[{ begin + 2 }] = { arg[begin + 2] }')
+#     # print(f'arg[{ begin + 3 }] = { arg[begin + 3] }')
+#     # print()
+
+#     key0, value0 = getKeyValue(arg[begin])
+#     key1, value1 = getKeyValue(arg[begin + 1])
+#     key2, value2 = getKeyValue(arg[begin + 2])
+#     key3, value3 = getKeyValue(arg[begin + 3])
+
+#     # print()
+#     # print('key0   = ', key0)
+#     # print('value0 = ', value0)
+#     # print()
+#     # print('key1   = ', key1)
+#     # print('value1 = ', value1)
+#     # print()
+#     # print('key2   = ', key2)
+#     # print('value2 = ', value2)
+#     # print()
+#     # print('key3   = ', key3)
+#     # print('value3 = ', value3)
+#     # print()
+
+
+#     if key0 == 'IDENTIFIER' and value1 == '=' and value2 in myBool and value3 == ';':
+#         result = {
+#             'Token': 'Define',
+#             'Lexeme': '',
+#             'BNF': '<Define> -> <Identifier>  = true/false ;'
+#         }
+#         return True, result, begin
+#     elif key0 == 'IDENTIFIER' and value1 == '=' and key2 in myNum and value3 == ';':
+#         result = {
+#             'Token': 'Define',
+#             'Lexeme': '',
+#             'BNF': '<Define> -> <Identifier>  = number ;'
+#         }
+#         return True, result, begin
+#     else:
+#         return False, -1, 9999999999
+
+
+
+# # <A2> -> <ID> = <ID> ;       a = b
+# def isDefine2 (arg, begin):
+# # B
+# # 1
+# # n
+# # h
+# # Tr 4 n 
+
+
+#     print()
+#     # print('arg in isDefine2 = ')
+#     # for i in arg:
+#     #     print(f'{i}')
+#     # print()
+
+#     # print('begin in isDefine2 = ', begin)
+
+#     # print(f'arg[{ begin }] = { arg[begin] }')
+#     # print(f'arg[{ begin + 1 }] = { arg[begin + 1] }')
+#     # print(f'arg[{ begin + 2 }] = { arg[begin + 2] }')
+#     # print(f'arg[{ begin + 3 }] = { arg[begin + 3] }')
+#     # print()
+
+#     key0, value0 = getKeyValue(arg[begin])
+#     key1, value1 = getKeyValue(arg[begin + 1])
+#     key2, value2 = getKeyValue(arg[begin + 2])
+#     key3, value3 = getKeyValue(arg[begin + 3])
+
+#     # print()
+#     # print('key0   = ', key0)
+#     # print('value0 = ', value0)
+#     # print()
+#     # print('key1   = ', key1)
+#     # print('value1 = ', value1)
+#     # print()
+#     # print('key2   = ', key2)
+#     # print('value2 = ', value2)
+#     # print()
+#     # print('key3   = ', key3)
+#     # print('value3 = ', value3)
+#     # print()
+
+
+#     if key0 == 'IDENTIFIER' and value1 == '=' and key2 == 'IDENTIFIER' and value3 == ';':
+#         result = {
+#             'Token': 'Define2',
+#             'Lexeme': '',
+#             'BNF': '<Define2> -> <Identifier>  = <Identifier> ;'
+#         }
+#         return True, result, begin
+    
+#     else:
+#         return False, -1, 9999999999
 
 
 
