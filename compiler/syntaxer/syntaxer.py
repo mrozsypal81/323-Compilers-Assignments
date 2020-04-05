@@ -43,10 +43,10 @@ def checkAllRules(arg, begin):
         return isDeclare, resultDeclare, newBeginDeclare
 
 
-    isAss, resultAssign, newBeginAssign, totalexplength = isAssign (arg, begin)
+    isAss, resultAssign, newBeginAssign = isAssign (arg, begin)
 
     if isAssign:
-        newBeginAssign = begin + totalexplength
+        newBeginAssign = begin
         return isAss, resultAssign, newBeginAssign
 
     else:
@@ -63,17 +63,27 @@ def getKeyValue (mydict):
 
 def getSpecificKV (lexemelist,myvalue,beginval):
     positionval = beginval
-    for x in range(beginval):
-        positionval = positionval + 1
+    for x in range(beginval):   
         for key,value in x.items():
             if value == myvalue :
                 return key,value,positionval
+        positionval = positionval + 1
+    return None,None,-1
+
+def getSpecificKVreverse (lexemelist,myvalue,beginval):
+    positionval = beginval
+    for x in  reversed(list(enumerate(range(beginval)))):  
+        for key,value in x.items():
+            if value == myvalue :
+                return key,value,positionval
+        positionval = positionval - 1
+    return None,None,-1
         
 
 
 #       Example : int a
 #<Statement> -> <Declarative>
-#<Declarative> -> <Type> <id>
+#<Declarative> -> <Type> <id>;
 def isDeclarative (arg, begin):
     myType = ['int', 'float', 'bool']
     print()
@@ -88,15 +98,19 @@ def isDeclarative (arg, begin):
             'Token': key0,
             'Lexeme': value0,
             'Grammar': '<Statement> -> <Declarative>' 
-                        '<Declarative> -> <Type> <id>',
-            'Token2': key1,
-            'Lexeme2': value1,
-            'Grammar2': '<Statement> -> <Declarative>' 
-                        '<Declarative> -> <Type> <id>',
-            'Token3': key2,
-            'Lexeme3': value2,
-            'Grammar3': '<Statement> -> <Declarative>' 
-                        '<Declarative> -> <Type> <id>'
+                        '<Declarative> -> <Type> <id>;'
+        })
+        result.append({            
+            'Token': key1,
+            'Lexeme': value1,
+            'Grammar': '<Statement> -> <Declarative>' 
+                        '<Declarative> -> <Type> <id>;'
+        })
+        result.append({            
+            'Token': key2,
+            'Lexeme': value2,
+            'Grammar': '<Statement> -> <Declarative>' 
+                        '<Declarative> -> <Type> <id>;'
         })
         return True, result, begin
     else:
@@ -111,24 +125,104 @@ def isAssign(arg, begin):
 
     key0, value0 = getKeyValue(arg[begin])
     key1, value1 = getKeyValue(arg[begin + 1])
-    key2, value2 , posval = getSpecificKV(arg,';',begin + 2)
+    key2, value2 , posval = getSpecificKV(arg,';',begin + 2) 
     
     if key0 == 'IDENTIFIER' and value1 == '=':
-        result = {
-            'Token' : 'Assign',
-            'Lexeme': ''
-        }
-        isExp, resultExpress, newbegin, totaladded = isExpress (arg, begin + 2,posval)
-        result += resultExpress
-        total = totaladded
-        return isExp, result, begin, total
+        result = []
+        result.append( {
+            'Token': key0,
+            'Lexeme': value0,
+            'Grammar': '<Statement> -> <Assign>' 
+                        '<Assign> -> <ID> = <Expression>;'
+
+        })
+        result.append({            
+            'Token': key1,
+            'Lexeme': value1,
+            'Grammar': '<Statement> -> <Assign>' 
+                        '<Assign> -> <ID> = <Expression>;'
+        })
+        isExp, resultExpress, newbegin = isExpress (arg, begin + 2,posval)
+
+        if isExp:
+            begin = newbegin
+            result.extend(resultExpress)
+        else:
+            print('Assign Error at lexeme '+ begin)
+
+        
+
+        result.append({            
+            'Token': key2,
+            'Lexeme': value2,
+            'Grammar': '<Statement> -> <Assign>' 
+                        '<<Assign> -> <ID> = <Expression>;'
+        })
+        return isExp, result, begin
     else:
         return False, -1, 999999999999
 
+#<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>
 def isExpress(arg,begin,posval):
     print("Inside Expression")
 
+    result = []
+    isresult = False
+
+    key, value , plusval = getSpecificKVreverse(arg,'+',posval)
+    key2, value2 , minusval = getSpecificKVreverse(arg,'-',posval)
+
+
+    if value == '+':
+        isExp, resultExpress, newbegin = isExpress (arg, begin ,plusval-1)
+        
+        if isExp:
+            isresult = isExp
+            begin = newbegin
+            result.extend(resultExpress)
+            result.append( {
+                'Token': key,
+                'Lexeme': value,
+                'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
+
+            })
+        else:
+            print('Expression Error at lexeme '+ begin)
+
+
+    if value2 == '-':
+        isExp, resultExpress, newbegin = isExpress (arg, begin ,minusval-1)
+        
+        if isExp:
+            isresult = isExp
+            begin = newbegin
+            result.extend(resultExpress)
+            result.append( {
+                'Token': key2,
+                'Lexeme': value2,
+                'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
+
+            })
+        else:
+            print('Expression Error at lexeme '+ begin)
+
+    if value == None and value2 == None:
+        iste, resultterm, newbegin = isTerm (arg,begin,posval)
+        
+        if iste:
+            isresult = iste
+            begin = newbegin
+            result.extend(resultterm)
+        else:
+            print('Expression Error at lexeme '+ begin)
     
+    if isresult:
+        return isresult,result,begin
+
+
+
+def isTerm(arg,begin,posval):
+    print('Inside isTerm')
 
 # # <A1> -> <ID> = <NUM> ;      a = 1
 # # <Define> -> <IDs> = <NUM> ;       Example: a = 1
