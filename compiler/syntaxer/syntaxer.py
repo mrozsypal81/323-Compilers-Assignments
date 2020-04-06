@@ -317,3 +317,38 @@ def isTerm(arg,begin,posval):
 def isFactor (arg,begin,posval):
     print('Inside isFactor')
 
+
+    
+    result = []
+    isresult = False
+
+    key, value , forwardparenval = getSpecificKV(arg,'(',begin)
+    key2, value2 , backwardparenval = getSpecificKVreverse(arg,')',posval)
+    key3, value3 = getKeyValue(begin)
+
+
+    if value == '(' and value2 == ')':
+        isExp, resultExpress, newbegin = isExpress (arg, forwardparenval + 1,backwardparenval)
+        
+        if isExp:
+            isresult = isExp
+            begin = newbegin
+            result.extend(resultExpress)
+
+        else:
+            print('Term Error at lexeme '+ begin)
+
+
+    if value == None and value2 == None:
+        isID, resultID, newbegin = isID (arg,begin,posval)
+        
+        if isID:
+            isresult = isID
+            begin = newbegin
+            result.extend(resultID)
+        else:
+            print('Term Error at lexeme '+ begin)
+    
+    if isresult:
+        return isresult,result,begin
+
