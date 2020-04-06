@@ -314,6 +314,8 @@ def isTerm(arg,begin,posval):
     if isresult:
         return isresult,result,begin
 
+
+#<Factor> -> ( <Expression> ) | <ID> | <num> 
 def isFactor (arg,begin,posval):
     print('Inside isFactor')
 
@@ -324,26 +326,37 @@ def isFactor (arg,begin,posval):
 
     key, value , forwardparenval = getSpecificKV(arg,'(',begin)
     key2, value2 , backwardparenval = getSpecificKVreverse(arg,')',posval)
-    key3, value3 = getKeyValue(begin)
-
 
     if value == '(' and value2 == ')':
         isExp, resultExpress, newbegin = isExpress (arg, forwardparenval + 1,backwardparenval)
         
         if isExp:
+            result.append( {
+                'Token': key,
+                'Lexeme': value,
+                'Grammar': '<Factor> -> ( <Expression> ) | <ID> | <num> '
+
+            })
             isresult = isExp
             begin = newbegin
             result.extend(resultExpress)
+            
+            result.append( {
+                'Token': key2,
+                'Lexeme': value2,
+                'Grammar': '<Factor> -> ( <Expression> ) | <ID> | <num> '
+
+            })
 
         else:
             print('Term Error at lexeme '+ begin)
 
 
     if value == None and value2 == None:
-        isID, resultID, newbegin = isID (arg,begin,posval)
+        isIDcheck, resultID, newbegin = isID (arg,begin,posval)
         
-        if isID:
-            isresult = isID
+        if isIDcheck:
+            isresult = isIDcheck
             begin = newbegin
             result.extend(resultID)
         else:
@@ -352,3 +365,25 @@ def isFactor (arg,begin,posval):
     if isresult:
         return isresult,result,begin
 
+#<ID> -> id
+def isID (arg,begin,posval):
+    print('Inside isID')
+
+    result = []
+    isresult = False
+    key, value = getKeyValue(arg[begin])
+    print('Inside isID2')
+
+    if key == 'IDENTIFIER' or key == 'KEYWORD' or key == 'FLOAT' or key == 'INT':
+        print('Inside isID3')
+        isresult = True
+        result.append( {
+                'Token': key,
+                'Lexeme': value,
+                'Grammar': '<ID> -> id'
+        })
+        begin = begin + 1
+    print('Inside isID4')
+    if isresult:
+        print('Inside isID5')
+        return isresult,result,begin
