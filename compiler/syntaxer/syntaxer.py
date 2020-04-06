@@ -17,8 +17,9 @@ class Syntaxer (object):
             isCheck, result, newBegin = checkAllRules(lexemes, begin)
 
 
-            # print('isCheck = ', isCheck)
-            print('Result = ', result)
+            print('isCheck = ', isCheck)
+            for i in result:
+                print(i)
            
             begin = newBegin
             print('\n\n')
@@ -45,8 +46,7 @@ def checkAllRules(arg, begin):
 
     isAss, resultAssign, newBeginAssign = isAssign (arg, begin)
 
-    if isAssign:
-        newBeginAssign = begin
+    if isAss:
         return isAss, resultAssign, newBeginAssign
 
     else:
@@ -145,21 +145,23 @@ def isAssign(arg, begin):
         isExp, resultExpress, newbegin = isExpress (arg, begin + 2,posval)
 
         if isExp:
-            begin = newbegin
+            begin = newbegin + 1
             result.extend(resultExpress)
+            result.append({            
+                'Token': key2,
+                'Lexeme': value2,
+                'Grammar': '<Statement> -> <Assign>' 
+                            '<<Assign> -> <ID> = <Expression>;'
+            })
         else:
             print('Assign Error at lexeme '+ begin)
 
         
 
-        result.append({            
-            'Token': key2,
-            'Lexeme': value2,
-            'Grammar': '<Statement> -> <Assign>' 
-                        '<<Assign> -> <ID> = <Expression>;'
-        })
+
         return isExp, result, begin
     else:
+        print('Assign Error at lexeme '+ begin)
         return False, -1, 999999999999
 
 #<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>
@@ -178,7 +180,6 @@ def isExpress(arg,begin,posval):
         
         if isExp:
             isresult = isExp
-            begin = newbegin
             result.extend(resultExpress)
             result.append( {
                 'Token': key,
@@ -193,7 +194,7 @@ def isExpress(arg,begin,posval):
         
         if isTe:
             isresult = isTe
-            begin = newbegin
+            begin = newbegin + 1
             result.extend(resultTerm)
         else:
             print('Expression Error at lexeme '+ begin)
@@ -204,7 +205,6 @@ def isExpress(arg,begin,posval):
         
         if isExp:
             isresult = isExp
-            begin = newbegin
             result.extend(resultExpress)
             result.append( {
                 'Token': key2,
@@ -219,7 +219,7 @@ def isExpress(arg,begin,posval):
         
         if isTe:
             isresult = isTe
-            begin = newbegin
+            begin = newbegin + 1
             result.extend(resultTerm)
         else:
             print('Expression Error at lexeme '+ begin)
@@ -255,7 +255,6 @@ def isTerm(arg,begin,posval):
         
         if isTe:
             isresult = isTe
-            begin = newbegin
             result.extend(resultTerm)
             result.append( {
                 'Token': key,
@@ -270,7 +269,7 @@ def isTerm(arg,begin,posval):
         
         if isFac:
             isresult = isFac
-            begin = newbegin
+            begin = newbegin + 1
             result.extend(resultFac)
         else:
             print('Term Error at lexeme '+ begin)
@@ -281,7 +280,6 @@ def isTerm(arg,begin,posval):
         
         if isTe:
             isresult = isTe
-            begin = newbegin
             result.extend(resultTerm)
             result.append( {
                 'Token': key2,
@@ -296,7 +294,7 @@ def isTerm(arg,begin,posval):
         
         if isFac:
             isresult = isFac
-            begin = newbegin
+            begin = newbegin + 1
             result.extend(resultFac)
         else:
             print('Term Error at lexeme '+ begin)
@@ -338,7 +336,7 @@ def isFactor (arg,begin,posval):
 
             })
             isresult = isExp
-            begin = newbegin
+            begin = newbegin + 2
             result.extend(resultExpress)
             
             result.append( {
@@ -372,10 +370,10 @@ def isID (arg,begin,posval):
     result = []
     isresult = False
     key, value = getKeyValue(arg[begin])
-    print('Inside isID2')
+    #print('Inside isID2')
 
     if key == 'IDENTIFIER' or key == 'KEYWORD' or key == 'FLOAT' or key == 'INT':
-        print('Inside isID3')
+        #print('Inside isID3')
         isresult = True
         result.append( {
                 'Token': key,
@@ -383,7 +381,7 @@ def isID (arg,begin,posval):
                 'Grammar': '<ID> -> id'
         })
         begin = begin + 1
-    print('Inside isID4')
+    #print('Inside isID4')
     if isresult:
-        print('Inside isID5')
+        #print('Inside isID5')
         return isresult,result,begin
