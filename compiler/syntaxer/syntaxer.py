@@ -154,7 +154,7 @@ def isAssign(arg):
     count = 0
     key0, value0 = getKeyValue(arg[0])
     key1, value1 = getKeyValue(arg[1])
-    key2, value2 , posval = getSpecificKV(arg,';',2) 
+    key2, value2 = getKeyValue(arg[len(arg)-1]) 
     
     if key0 == 'IDENTIFIER' and value1 == '=':
         result = []
@@ -172,10 +172,10 @@ def isAssign(arg):
                         '<Assign> -> <ID> = <Expression>;'
         })
         count += 2
-        isExp, resultExpress, newbegin = isExpress (arg, 2,posval)
+        isExp, resultExpress, AddCount = isExpress (arg,0)
 
         if isExp:
-            count = newbegin + 1
+            count = count + AddCount + 1
             result.extend(resultExpress)
             result.append({            
                 'Token': key2,
@@ -195,36 +195,39 @@ def isAssign(arg):
         return False, -1, 999999999999
 
 #<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>
-def isExpress(arg,begin,posval):
+def isExpress(arg,posval):
     #print("Inside Expression")
 
+    count = 0
     result = []
     isresult = False
     
-    pkey,pvalue,posval = getSpecificKV(arg,';',begin)
+    pkey,pvalue,plusval = getSpecificKV(arg,'+',posval)
+    mkey,mvalue, minusval = getSpecificKV(arg,'-',posval)
 
     #key, value , plusval = getSpecificKVreverse(arg,'+',posval)
     #key2, value2 , minusval = getSpecificKVreverse(arg,'-',posval)
 
 
-    if value == '+':
+    if pvalue == '+':
         print("Inside Expression +")
-        isExp, resultExpress, newbegin = isExpress (arg, begin ,plusval-1)
+        isExp, resultExpress, AddCount = isExpress (arg, plusval+2)
         
         if isExp:
             isresult = isExp
             result.extend(resultExpress)
+            count += (AddCount + 1)
             result.append( {
-                'Token': key,
-                'Lexeme': value,
+                'Token': pkey,
+                'Lexeme': pvalue,
                 'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
 
             })
         else:
-            print('Expression Error at lexeme '+ begin)
-
+            print('Expression Error at lexeme '+ plusval-1)
+        
         print("Inside Expression + term")
-        isTe, resultTerm, newbegin = isTerm (arg,plusval+1,posval)
+        isTe, resultTerm, newbegin = isTerm (arg,plusval+2,posval)
         
         if isTe:
             isresult = isTe
