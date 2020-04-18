@@ -58,10 +58,10 @@ def checkAllRules(arg, begin):
             return isDeclare, resultDeclare, newBeginDeclare
 
     
-        # isAss, resultAssign, newBeginAssign = isAssign (arg, begin)
+        isAss, resultAssign, newBeginAssign = isAssign (arg)
 
-        # if isAss:
-        #     return isAss, resultAssign, newBeginAssign
+        if isAss:
+            return isAss, resultAssign, newBeginAssign
 
         # isExp, resultExpress, newbegin = isExpress (arg, begin,begin)
         
@@ -148,13 +148,13 @@ def isDeclarative (arg):
 
 #<Statement> -> <Assign>
 #<Assign> -> <ID> = <Expression>;
-def isAssign(arg, begin):
+def isAssign(arg):
     print("Inside Assign")
 
-
-    key0, value0 = getKeyValue(arg[begin])
-    key1, value1 = getKeyValue(arg[begin + 1])
-    key2, value2 , posval = getSpecificKV(arg,';',begin + 2) 
+    count = 0
+    key0, value0 = getKeyValue(arg[0])
+    key1, value1 = getKeyValue(arg[1])
+    key2, value2 , posval = getSpecificKV(arg,';',2) 
     
     if key0 == 'IDENTIFIER' and value1 == '=':
         result = []
@@ -171,10 +171,11 @@ def isAssign(arg, begin):
             'Grammar': '<Statement> -> <Assign>' 
                         '<Assign> -> <ID> = <Expression>;'
         })
-        isExp, resultExpress, newbegin = isExpress (arg, begin + 2,posval)
+        count += 2
+        isExp, resultExpress, newbegin = isExpress (arg, 2,posval)
 
         if isExp:
-            begin = newbegin + 1
+            count = newbegin + 1
             result.extend(resultExpress)
             result.append({            
                 'Token': key2,
@@ -183,14 +184,14 @@ def isAssign(arg, begin):
                             '<<Assign> -> <ID> = <Expression>;'
             })
         else:
-            print('Assign Error at lexeme '+ begin)
+            print('Assign Error at lexeme '+ count)
 
         
 
 
-        return isExp, result, begin
+        return isExp, result, count
     else:
-        print('Assign Error at lexeme ', begin)
+        print('Assign Error at lexeme ', count)
         return False, -1, 999999999999
 
 #<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>
