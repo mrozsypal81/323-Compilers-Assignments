@@ -2452,3 +2452,321 @@ INT          = 	3
 OPERATOR     = 	*
 INT          = 	2
 SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+KEYWORD      = 	int
+IDENTIFIER   = 	a
+SEPARATOR    = 	;
+KEYWORD      = 	bool
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+KEYWORD      = 	float
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+IDENTIFIER   = 	d
+OPERATOR     = 	=
+INT          = 	1
+SEPARATOR    = 	;
+IDENTIFIER   = 	e
+OPERATOR     = 	=
+FLOAT        = 	2.2
+SEPARATOR    = 	;
+IDENTIFIER   = 	f
+OPERATOR     = 	=
+KEYWORD      = 	true
+SEPARATOR    = 	;
+IDENTIFIER   = 	g
+OPERATOR     = 	=
+KEYWORD      = 	false
+SEPARATOR    = 	;
+IDENTIFIER   = 	h
+OPERATOR     = 	=
+IDENTIFIER   = 	i
+SEPARATOR    = 	;
+IDENTIFIER   = 	j
+OPERATOR     = 	=
+IDENTIFIER   = 	l
+SEPARATOR    = 	;
+IDENTIFIER   = 	m
+OPERATOR     = 	=
+IDENTIFIER   = 	n
+SEPARATOR    = 	;
+INT          = 	1
+OPERATOR     = 	+
+INT          = 	3
+OPERATOR     = 	*
+INT          = 	2
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+KEYWORD      = 	int
+IDENTIFIER   = 	a
+SEPARATOR    = 	;
+KEYWORD      = 	bool
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+KEYWORD      = 	float
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+IDENTIFIER   = 	d
+OPERATOR     = 	=
+INT          = 	1
+SEPARATOR    = 	;
+IDENTIFIER   = 	e
+OPERATOR     = 	=
+FLOAT        = 	2.2
+SEPARATOR    = 	;
+IDENTIFIER   = 	f
+OPERATOR     = 	=
+KEYWORD      = 	true
+SEPARATOR    = 	;
+IDENTIFIER   = 	g
+OPERATOR     = 	=
+KEYWORD      = 	false
+SEPARATOR    = 	;
+IDENTIFIER   = 	h
+OPERATOR     = 	=
+IDENTIFIER   = 	i
+SEPARATOR    = 	;
+IDENTIFIER   = 	j
+OPERATOR     = 	=
+IDENTIFIER   = 	l
+SEPARATOR    = 	;
+IDENTIFIER   = 	m
+OPERATOR     = 	=
+IDENTIFIER   = 	n
+SEPARATOR    = 	;
+INT          = 	1
+OPERATOR     = 	+
+INT          = 	3
+OPERATOR     = 	*
+INT          = 	2
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+KEYWORD      = 	int
+IDENTIFIER   = 	a
+SEPARATOR    = 	;
+KEYWORD      = 	bool
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+KEYWORD      = 	float
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+IDENTIFIER   = 	d
+OPERATOR     = 	=
+INT          = 	1
+SEPARATOR    = 	;
+IDENTIFIER   = 	e
+OPERATOR     = 	=
+FLOAT        = 	2.2
+SEPARATOR    = 	;
+IDENTIFIER   = 	f
+OPERATOR     = 	=
+KEYWORD      = 	true
+SEPARATOR    = 	;
+IDENTIFIER   = 	g
+OPERATOR     = 	=
+KEYWORD      = 	false
+SEPARATOR    = 	;
+IDENTIFIER   = 	h
+OPERATOR     = 	=
+IDENTIFIER   = 	i
+SEPARATOR    = 	;
+IDENTIFIER   = 	j
+OPERATOR     = 	=
+IDENTIFIER   = 	l
+SEPARATOR    = 	;
+IDENTIFIER   = 	m
+OPERATOR     = 	=
+IDENTIFIER   = 	n
+SEPARATOR    = 	;
+INT          = 	1
+OPERATOR     = 	+
+INT          = 	3
+OPERATOR     = 	*
+INT          = 	2
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+KEYWORD      = 	int
+IDENTIFIER   = 	a
+SEPARATOR    = 	;
+KEYWORD      = 	bool
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+KEYWORD      = 	float
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+IDENTIFIER   = 	d
+OPERATOR     = 	=
+INT          = 	1
+SEPARATOR    = 	;
+IDENTIFIER   = 	e
+OPERATOR     = 	=
+FLOAT        = 	2.2
+SEPARATOR    = 	;
+IDENTIFIER   = 	f
+OPERATOR     = 	=
+KEYWORD      = 	true
+SEPARATOR    = 	;
+IDENTIFIER   = 	g
+OPERATOR     = 	=
+KEYWORD      = 	false
+SEPARATOR    = 	;
+IDENTIFIER   = 	h
+OPERATOR     = 	=
+IDENTIFIER   = 	i
+SEPARATOR    = 	;
+IDENTIFIER   = 	j
+OPERATOR     = 	=
+IDENTIFIER   = 	l
+SEPARATOR    = 	;
+IDENTIFIER   = 	m
+OPERATOR     = 	=
+IDENTIFIER   = 	n
+SEPARATOR    = 	;
+INT          = 	1
+OPERATOR     = 	+
+INT          = 	3
+OPERATOR     = 	*
+INT          = 	2
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+KEYWORD      = 	int
+IDENTIFIER   = 	a
+SEPARATOR    = 	;
+KEYWORD      = 	bool
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+KEYWORD      = 	float
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+IDENTIFIER   = 	d
+OPERATOR     = 	=
+INT          = 	1
+SEPARATOR    = 	;
+IDENTIFIER   = 	e
+OPERATOR     = 	=
+FLOAT        = 	2.2
+SEPARATOR    = 	;
+IDENTIFIER   = 	f
+OPERATOR     = 	=
+KEYWORD      = 	true
+SEPARATOR    = 	;
+IDENTIFIER   = 	g
+OPERATOR     = 	=
+KEYWORD      = 	false
+SEPARATOR    = 	;
+IDENTIFIER   = 	h
+OPERATOR     = 	=
+IDENTIFIER   = 	i
+SEPARATOR    = 	;
+IDENTIFIER   = 	j
+OPERATOR     = 	=
+IDENTIFIER   = 	l
+SEPARATOR    = 	;
+IDENTIFIER   = 	m
+OPERATOR     = 	=
+IDENTIFIER   = 	n
+SEPARATOR    = 	;
+INT          = 	1
+OPERATOR     = 	+
+INT          = 	3
+OPERATOR     = 	*
+INT          = 	2
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+KEYWORD      = 	int
+IDENTIFIER   = 	a
+SEPARATOR    = 	;
+KEYWORD      = 	bool
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+KEYWORD      = 	float
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+IDENTIFIER   = 	d
+OPERATOR     = 	=
+INT          = 	1
+SEPARATOR    = 	;
+IDENTIFIER   = 	e
+OPERATOR     = 	=
+FLOAT        = 	2.2
+SEPARATOR    = 	;
+IDENTIFIER   = 	f
+OPERATOR     = 	=
+KEYWORD      = 	true
+SEPARATOR    = 	;
+IDENTIFIER   = 	g
+OPERATOR     = 	=
+KEYWORD      = 	false
+SEPARATOR    = 	;
+IDENTIFIER   = 	h
+OPERATOR     = 	=
+IDENTIFIER   = 	i
+SEPARATOR    = 	;
+IDENTIFIER   = 	j
+OPERATOR     = 	=
+IDENTIFIER   = 	l
+SEPARATOR    = 	;
+IDENTIFIER   = 	m
+OPERATOR     = 	=
+IDENTIFIER   = 	n
+SEPARATOR    = 	;
+INT          = 	1
+OPERATOR     = 	+
+INT          = 	3
+OPERATOR     = 	*
+INT          = 	2
+SEPARATOR    = 	;

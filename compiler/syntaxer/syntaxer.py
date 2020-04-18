@@ -50,18 +50,23 @@ def checkAllRules(arg, begin):
 
     #testkey,testval,testpos = getSpecificKVreverse(arg,"+",semicolpos)
 
-    if len(templist) == 3: 
+    print("isDeclarative Check in CheckAllRules")
+    if len(templist) == 3:
+
+        print("Going into isDeclarative CheckAllRules")
         isDeclare, resultDeclare = isDeclarative (templist)
 
         if isDeclare:
             newBeginDeclare = begin + 3
             return isDeclare, resultDeclare, newBeginDeclare
 
-    eqkey,eqval = getKeyValue(templist)
+    eqkey,eqval,eqpos = getSpecificKV(templist,"=",0)
     
+    print("isAssign Check in CheckAllRules")
     if eqval == "=":
     
-        isAss, resultAssign, newBeginAssign = isAssign (arg)
+        print("Going into isAssign in CheckAllRules")
+        isAss, resultAssign, newBeginAssign = isAssign (templist)
 
         if isAss:
             return isAss, resultAssign, newBeginAssign
@@ -91,6 +96,7 @@ def getSpecificKV (arg,myvalue,beginval):
                 print("++++++++++++++++++++++++++++++++++++++")
                 return key,value,positionval
         positionval = positionval + 1
+    print("Could not find the specific key/value")
     return None,None,-1
 
 #<Statement> -> <Declarative>
@@ -110,19 +116,19 @@ def isDeclarative (arg):
             'Lexeme': value0,
             'Grammar': '<Statement> -> <Declarative>' 
                         '<Declarative> -> <Type> <id>;'
-        })
+         })
         result.append({            
             'Token': key1,
             'Lexeme': value1,
             'Grammar': '<Statement> -> <Declarative>' 
                         '<Declarative> -> <Type> <id>;'
-        })
+            })
         result.append({            
             'Token': key2,
             'Lexeme': value2,
             'Grammar': '<Statement> -> <Declarative>' 
                         '<Declarative> -> <Type> <id>;'
-        })
+            })
         return True, result
     else:
         return False, -1, 999999999999
@@ -138,6 +144,9 @@ def isAssign(arg):
     key1, value1 = getKeyValue(arg[1])
     key2, value2 = getKeyValue(arg[len(arg)-1]) 
     
+
+    print("Going into Assign check")
+    print(key0,value1)
     if key0 == 'IDENTIFIER' and value1 == '=':
         result = []
         result.append( {
@@ -146,14 +155,15 @@ def isAssign(arg):
             'Grammar': '<Statement> -> <Assign>' 
                         '<Assign> -> <ID> = <Expression>;'
 
-        })
+            })
         result.append({            
             'Token': key1,
             'Lexeme': value1,
             'Grammar': '<Statement> -> <Assign>' 
                         '<Assign> -> <ID> = <Expression>;'
-        })
+            })
         count += 2
+        print("Going into isExpress from isAssign")
         isExp, resultExpress, AddCount = isExpress (arg,0)
 
         if isExp:
@@ -164,16 +174,16 @@ def isAssign(arg):
                 'Lexeme': value2,
                 'Grammar': '<Statement> -> <Assign>' 
                             '<<Assign> -> <ID> = <Expression>;'
-            })
+                })
         else:
-            print('Assign Error at lexeme '+ count)
+            print('Assign Error 1 at lexeme '+ count)
 
         
 
 
         return isExp, result, count
     else:
-        print('Assign Error at lexeme ', count)
+        print('Assign Error 2 at lexeme ', count)
         return False, -1, 999999999999
 
 #<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>
@@ -194,7 +204,7 @@ def isExpress(arg,posval):
         count += AddCount
         result.extend(resultTerm)
     else:
-        print('Expression Error at lexeme '+ posval)
+        print('Expression Error 1 at lexeme '+ posval)
 
     print("Going into isExpressPrime")
     isExp, resultExpress, AddCount = isExpressPrime (arg, posval)
@@ -204,7 +214,7 @@ def isExpress(arg,posval):
         result.extend(resultExpress)
         count += AddCount
     else:
-        print('Expression Error at lexeme '+ posval)
+        print('Expression Error 2 at lexeme '+ posval)
 
     if isresult:
         return isresult,result,count
@@ -238,7 +248,7 @@ def isExpressPrime(arg,posval):
             count += AddCount
             result.extend(resultTerm)
         else:
-            print('ExpressionPrime Error at lexeme '+ pluspos)
+            print('ExpressionPrime Error 1 at lexeme '+ pluspos)
 
         print("Inside ExpressPrime + going into ExpressPrime")
         isExp, resultExpress, AddCount = isExpressPrime (arg, pluspos+1)
@@ -248,7 +258,7 @@ def isExpressPrime(arg,posval):
             result.extend(resultExpress)
             count += AddCount
         else:
-            print('ExpressionPrime Error at lexeme '+ pluspos)
+            print('ExpressionPrime Error 2 at lexeme '+ pluspos)
         
     if pvalue == '-':
         print("Inside Express - appending to result")
@@ -270,7 +280,7 @@ def isExpressPrime(arg,posval):
             count += AddCount
             result.extend(resultTerm)
         else:
-            print('ExpressionPrime Error at lexeme '+ minuspos)
+            print('ExpressionPrime Error 3 at lexeme '+ minuspos)
 
         print("Inside ExpressPrime + going into ExpressPrime")
         isExp, resultExpress, AddCount = isExpressPrime (arg, minuspos+1)
@@ -280,7 +290,7 @@ def isExpressPrime(arg,posval):
             result.extend(resultExpress)
             count += AddCount
         else:
-            print('ExpressionPrime Error at lexeme '+ minuspos)
+            print('ExpressionPrime Error 4 at lexeme '+ minuspos)
 
     if pvalue == None and mvalue == None:
         print("Inside ExpressPrime Epsilon")
@@ -311,7 +321,7 @@ def isTerm(arg,posval):
         count += AddCount
         result.extend(resultFac)
     else:
-        print('Term Error at lexeme '+ posval)
+        print('Term Error 1 at lexeme '+ posval)
 
     print("Going into isTermPrime")
     isTe, resultTerm, AddCount = isTermPrime (arg,posval)
@@ -321,7 +331,7 @@ def isTerm(arg,posval):
         count += AddCount
         result.extend(resultTerm)
     else:
-        print('Term Error at lexeme '+ posval)
+        print('Term Error 2 at lexeme '+ posval)
 
     if isresult:
         return isresult,result,count
@@ -345,7 +355,7 @@ def isTermPrime(arg,posval):
             'Lexeme': svalue,
             'Grammar': '<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>'
 
-        })
+            })
         #the +1 is to account for the append
         count += 1
 
@@ -357,7 +367,7 @@ def isTermPrime(arg,posval):
             count += AddCount
             result.extend(resultFac)
         else:
-            print('TermPrime Error at lexeme '+ starpos)
+            print('TermPrime Error 1 at lexeme '+ starpos)
 
         isTe, resultTerm, AddCount = isTermPrime (arg,starpos+1)
         
@@ -367,7 +377,7 @@ def isTermPrime(arg,posval):
             result.extend(resultTerm)
 
         else:
-            print('TermPrime Error at lexeme '+ starpos)
+            print('TermPrime Error 2 at lexeme '+ starpos)
 
 
 
@@ -380,7 +390,7 @@ def isTermPrime(arg,posval):
             'Lexeme': dvalue,
             'Grammar': '<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>'
 
-        })
+            })
         #the +1 is to account for the append
         count += 1
         print("Inside isTermPrime going into isFactor in /")
@@ -391,7 +401,7 @@ def isTermPrime(arg,posval):
             count += AddCount
             result.extend(resultFac)
         else:
-            print('TermPrime Error at lexeme '+ divpos)
+            print('TermPrime Error 3 at lexeme '+ divpos)
 
         isTe, resultTerm, AddCount = isTermPrime (arg,divpos+1)
         
@@ -401,7 +411,7 @@ def isTermPrime(arg,posval):
             result.extend(resultTerm)
 
         else:
-            print('TermPrime Error at lexeme '+ divpos)
+            print('TermPrime Error 4 at lexeme '+ divpos)
 
     if svalue == None and dvalue == None:
         print("Inside TermPrime Epsilon")
@@ -417,50 +427,56 @@ def isFactor (arg,posval):
     print('Inside isFactor')
 
 
-    
+    count = 0
     result = []
     isresult = False
 
     fkey, fvalue , fpos = getSpecificKV(arg,'(',posval)
-    bkey2, bvalue2 , bpos = getSpecificKV(arg,')',posval)
+    bkey, bvalue , bpos = getSpecificKV(arg,')',posval)
 
-    if value == '(' and value2 == ')':
-        isExp, resultExpress, newbegin = isExpress (arg, forwardparenval + 1,backwardparenval)
+    if fvalue == '(' and bvalue == ')':
+        print("Inside isFactor ( ) appending")
+
+        result.append( {
+            'Token': fkey,
+            'Lexeme': fvalue,
+            'Grammar': '<Factor> -> ( <Expression> ) | <ID> | <num> '
+
+            })
+        
+        #The plus 2 is to account for both parenthesis
+        count += 2
+
+        print("Inside isFactor ( ) going into isExpress")
+        isExp, resultExpress, AddCount = isExpress (arg, fpos)
         
         if isExp:
-            result.append( {
-                'Token': key,
-                'Lexeme': value,
-                'Grammar': '<Factor> -> ( <Expression> ) | <ID> | <num> '
-
-            })
             isresult = isExp
-            begin = newbegin + 2
+            count += AddCount
             result.extend(resultExpress)
-            
-            result.append( {
-                'Token': key2,
-                'Lexeme': value2,
-                'Grammar': '<Factor> -> ( <Expression> ) | <ID> | <num> '
+        else:
+            print('isFactor Error 1 at lexeme '+ fpos)
+
+        result.append({
+            'Token': bkey,
+            'Lexeme': bvalue,
+            'Grammar': '<Factor> -> ( <Expression> ) | <ID> | <num> '
 
             })
 
-        else:
-            print('Term Error at lexeme '+ begin)
 
-
-    if value == None and value2 == None:
-        isIDcheck, resultID, newbegin = isID (arg,begin,posval)
+    if fvalue == None and bvalue == None:
+        isIDcheck, resultID, AddCount = isID (arg,posval)
         
         if isIDcheck:
             isresult = isIDcheck
-            begin = newbegin
+            count += AddCount
             result.extend(resultID)
         else:
-            print('Term Error at lexeme '+ begin)
+            print('isFactor Error 2 at lexeme '+ posval)
     
     if isresult:
-        return isresult,result,begin
+        return isresult,result,count
 
 #<ID> -> id
 def isID (arg,posval):
@@ -468,19 +484,21 @@ def isID (arg,posval):
 
     result = []
     isresult = False
-    key, value = getKeyValue(arg[begin])
-    #print('Inside isID2')
+    count = 0
 
+    print('Inside isID getting value')
+    key, value = getKeyValue(arg[posval])
+    
+    print('Inside isID check key')   
     if key == 'IDENTIFIER' or key == 'KEYWORD' or key == 'FLOAT' or key == 'INT':
-        #print('Inside isID3')
         isresult = True
         result.append( {
                 'Token': key,
                 'Lexeme': value,
                 'Grammar': '<ID> -> id'
-        })
-        begin = begin + 1
-    #print('Inside isID4')
+            })
+        count = count + 1
+
+    print('Inside isID returning result')
     if isresult:
-        #print('Inside isID5')
-        return isresult,result,begin
+        return isresult,result,count
