@@ -3035,3 +3035,477 @@ INT          = 	3
 OPERATOR     = 	*
 INT          = 	2
 SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+OPERATOR     = 	*
+IDENTIFIER   = 	r
+OPERATOR     = 	/
+IDENTIFIER   = 	h
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+OPERATOR     = 	*
+IDENTIFIER   = 	r
+OPERATOR     = 	/
+IDENTIFIER   = 	h
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+OPERATOR     = 	*
+IDENTIFIER   = 	r
+OPERATOR     = 	/
+IDENTIFIER   = 	h
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+OPERATOR     = 	-
+IDENTIFIER   = 	e
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	+
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+OPERATOR     = 	-
+IDENTIFIER   = 	c
+OPERATOR     = 	+
+IDENTIFIER   = 	d
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+OPERATOR     = 	/
+IDENTIFIER   = 	c
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+OPERATOR     = 	/
+IDENTIFIER   = 	c
+SEPARATOR    = 	;

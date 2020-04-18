@@ -55,6 +55,7 @@ def checkAllRules(arg, begin):
 
         print("Going into isDeclarative CheckAllRules")
         isDeclare, resultDeclare = isDeclarative (templist)
+        print("Return from isDeclarative in CheckAllRules")
 
         if isDeclare:
             count = begin + 3
@@ -67,6 +68,7 @@ def checkAllRules(arg, begin):
     
         print("Going into isAssign in CheckAllRules")
         isAss, resultAssign, AddCount = isAssign (templist)
+        print("Return from isAssign in CheckAllRules")
 
         if isAss:
             count += AddCount
@@ -74,6 +76,7 @@ def checkAllRules(arg, begin):
 
     print("Going into isExpress in CheckAllRules")
     isExp, resultExpress, AddCount = isExpress(templist,0)
+    print("Return from isExpress in CheckAllRules")
 
     if isExp:
         count += AddCount
@@ -90,16 +93,16 @@ def getSpecificKV (arg,myvalue,beginval):
     positionval = beginval
     for x in arg[beginval:]:   
         for key,value in x.items():
-            print("Next in specific function")
-            print(key,value,positionval)
-            print("++++++++++++++++++++++++++++++++++++++")
+            # print("Next in specific function")
+            # print(key,value,positionval)
+            # print("++++++++++++++++++++++++++++++++++++++")
             if value == myvalue :
-                print("Match in specific function")
-                print(key,value,positionval)
-                print("++++++++++++++++++++++++++++++++++++++")
+                # print("Match in specific function")
+                # print(key,value,positionval)
+                # print("++++++++++++++++++++++++++++++++++++++")
                 return key,value,positionval
         positionval = positionval + 1
-    print("Could not find the specific key/value")
+    #print("Could not find the specific key/value")
     return None,None,-1
 
 #<Statement> -> <Declarative>
@@ -168,6 +171,7 @@ def isAssign(arg):
         count += 2
         print("Going into isExpress from isAssign")
         isExp, resultExpress, AddCount = isExpress (arg,2)
+        print("Return from isExpress in isAssign")
 
         if isExp:
             count = count + AddCount + 1
@@ -198,9 +202,12 @@ def isExpress(arg,posval):
     isresult = False
     
     result = []
+    
+    newpos = posval
 
     print("Going into isTerm")
-    isTe, resultTerm, AddCount = isTerm (arg,posval)
+    isTe, resultTerm, AddCount ,newpos= isTerm (arg,posval)
+    print("Return from isTerm from isExpress")
         
     if isTe:
         isresult = isTe
@@ -210,7 +217,8 @@ def isExpress(arg,posval):
         print('Expression Error 1 at lexeme '+ posval)
 
     print("Going into isExpressPrime")
-    isExp, resultExpress, AddCount = isExpressPrime (arg, posval)
+    isExp, resultExpress, AddCount,newpos = isExpressPrime (arg, posval)
+    print("Return from isExpressPrime in isExpress")
         
     if isExp:
         isresult = isExp
@@ -220,7 +228,7 @@ def isExpress(arg,posval):
         print('Expression Error 2 at lexeme '+ posval)
 
     if isresult:
-        return isresult,result,count
+        return isresult,result,count,newpos
         
 def isExpressPrime(arg,posval):
     print("Inside isExpressPrime")
@@ -231,7 +239,9 @@ def isExpressPrime(arg,posval):
     pkey,pvalue,pluspos = getSpecificKV(arg,'+',posval)
     mkey,mvalue, minuspos = getSpecificKV(arg,'-',posval)
 
-
+    print("printing the current arg and posval")
+    print(arg,posval)
+    print("after printing the current arg and posval")
     if pvalue == '+':
         print("Inside Express + appending to result")
 
@@ -244,7 +254,8 @@ def isExpressPrime(arg,posval):
         count += 1
 
         print("Inside ExpressPrime + going into Term")
-        isTe, resultTerm, AddCount = isTerm (arg,pluspos+1)
+        isTe, resultTerm, AddCount,newpos = isTerm (arg,pluspos+1)
+        print("Return isTerm in isExpressPrime +")
         
         if isTe:
             isresult = isTe
@@ -254,7 +265,8 @@ def isExpressPrime(arg,posval):
             print('ExpressionPrime Error 1 at lexeme '+ pluspos)
 
         print("Inside ExpressPrime + going into ExpressPrime")
-        isExp, resultExpress, AddCount = isExpressPrime (arg, pluspos+1)
+        isExp, resultExpress, AddCount,newpos = isExpressPrime (arg, pluspos+1)
+        print("Return from isExpressPrime in isExpressPrime +")
         
         if isExp:
             isresult = isExp
@@ -263,7 +275,7 @@ def isExpressPrime(arg,posval):
         else:
             print('ExpressionPrime Error 2 at lexeme '+ pluspos)
         
-    if pvalue == '-':
+    if mvalue == '-':
         print("Inside Express - appending to result")
 
         result.append( {
@@ -276,7 +288,8 @@ def isExpressPrime(arg,posval):
         count += 1
         
         print("Inside ExpressPrime - going into Term")
-        isTe, resultTerm, AddCount = isTerm (arg,minuspos+1)
+        isTe, resultTerm, AddCount,newpos = isTerm (arg,minuspos+1)
+        print("Return from isTerm in isExpressPrime -")
         
         if isTe:
             isresult = isTe
@@ -286,7 +299,8 @@ def isExpressPrime(arg,posval):
             print('ExpressionPrime Error 3 at lexeme '+ minuspos)
 
         print("Inside ExpressPrime + going into ExpressPrime")
-        isExp, resultExpress, AddCount = isExpressPrime (arg, minuspos+1)
+        isExp, resultExpress, AddCount,newpos = isExpressPrime (arg, minuspos+1)
+        print("Return from isExpressPrime in isExpressPrime -")
         
         if isExp:
             isresult = isExp
@@ -295,15 +309,17 @@ def isExpressPrime(arg,posval):
         else:
             print('ExpressionPrime Error 4 at lexeme '+ minuspos)
 
+    print("ExpressPrime Epsilon Check")
+    print(pvalue,mvalue)
     if pvalue == None and mvalue == None:
         print("Inside ExpressPrime Epsilon")
         #This does nothing really it just returns whatever it found which should be nothing
 
-        return True,result,count
+        return True,result,count,newpos
         
-    
+    print("ExpressPrime final Check")
     if isresult:
-        return isresult,result,count
+        return isresult,result,count,newpos
 
 #<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>
 def isTerm(arg,posval):
@@ -316,8 +332,9 @@ def isTerm(arg,posval):
     
     result = []
 
-    print("Going into isFactor")
-    isFac, resultFac, AddCount = isFactor (arg,posval)
+    print("Going into isFactor inside isTerm")
+    isFac, resultFac, AddCount,newpos = isFactor (arg,posval)
+    print("Return from isFactor in isTerm")
         
     if isFac:
         isresult = isFac
@@ -326,8 +343,9 @@ def isTerm(arg,posval):
     else:
         print('Term Error 1 at lexeme '+ posval)
 
-    print("Going into isTermPrime")
-    isTe, resultTerm, AddCount = isTermPrime (arg,posval)
+    print("Going into isTermPrime inside isTerm")
+    isTe, resultTerm, AddCount,newpos = isTermPrime (arg,posval)
+    print("Return from isTermPrime inside isTerm")
         
     if isTe:
         isresult = isTe
@@ -337,7 +355,7 @@ def isTerm(arg,posval):
         print('Term Error 2 at lexeme '+ posval)
 
     if isresult:
-        return isresult,result,count
+        return isresult,result,count,newpos
         
 
 def isTermPrime(arg,posval):
@@ -362,8 +380,9 @@ def isTermPrime(arg,posval):
         #the +1 is to account for the append
         count += 1
 
-        print("INside isTermPrime going into isFactor in *")
-        isFac, resultFac, AddCount = isFactor (arg,starpos+1)
+        print("Inside isTermPrime going into isFactor in *")
+        isFac, resultFac, AddCount,newpos = isFactor (arg,starpos+1)
+        print("Return from isFactor in isTermPrime *")
         
         if isFac:
             isresult = isFac
@@ -372,7 +391,9 @@ def isTermPrime(arg,posval):
         else:
             print('TermPrime Error 1 at lexeme '+ starpos)
 
-        isTe, resultTerm, AddCount = isTermPrime (arg,starpos+1)
+        print("Inside isTermPrime going into isTermPrime in *")
+        isTe, resultTerm, AddCount,newpos = isTermPrime (arg,starpos+1)
+        print("Return from isTermPrime in isTermPrime *")
         
         if isTe:
             isresult = isTe
@@ -397,7 +418,8 @@ def isTermPrime(arg,posval):
         #the +1 is to account for the append
         count += 1
         print("Inside isTermPrime going into isFactor in /")
-        isFac, resultFac, AddCount = isFactor (arg,divpos+1)
+        isFac, resultFac, AddCount,newpos = isFactor (arg,divpos+1)
+        print("Return from isFactor in isTermPrime /")
         
         if isFac:
             isresult = isFac
@@ -406,7 +428,9 @@ def isTermPrime(arg,posval):
         else:
             print('TermPrime Error 3 at lexeme '+ divpos)
 
-        isTe, resultTerm, AddCount = isTermPrime (arg,divpos+1)
+        print("Inside isTermPrime going into isTermPrime in /")
+        isTe, resultTerm, AddCount,newpos = isTermPrime (arg,divpos+1)
+        print("Return from isTermPrime in isTermPRime /")
         
         if isTe:
             isresult = isTe
@@ -420,10 +444,10 @@ def isTermPrime(arg,posval):
         print("Inside TermPrime Epsilon")
         #This does nothing really it just returns whatever it found which should be nothing
 
-        return True,result,count
+        return True,result,count,newpos
 
     if isresult:
-        return isresult,result,count
+        return isresult,result,count,newpos
 
 #<Factor> -> ( <Expression> ) | <ID> | <num> 
 def isFactor (arg,posval):
@@ -451,7 +475,8 @@ def isFactor (arg,posval):
         count += 2
 
         print("Inside isFactor ( ) going into isExpress")
-        isExp, resultExpress, AddCount = isExpress (arg, fpos)
+        isExp, resultExpress, AddCount,newpos = isExpress (arg, fpos)
+        print("Return from isExpress insdie isFactor")
         
         if isExp:
             isresult = isExp
@@ -469,7 +494,9 @@ def isFactor (arg,posval):
 
 
     if fvalue == None and bvalue == None:
-        isIDcheck, resultID, AddCount = isID (arg,posval)
+        print("Going into isID from isFactor")
+        isIDcheck, resultID, AddCount,newpos = isID (arg,posval)
+        print("Return from isID in isFactor")
         
         if isIDcheck:
             isresult = isIDcheck
@@ -479,7 +506,7 @@ def isFactor (arg,posval):
             print('isFactor Error 2 at lexeme '+ posval)
     
     if isresult:
-        return isresult,result,count
+        return isresult,result,count,newpos
 
 #<ID> -> id
 def isID (arg,posval):
@@ -491,7 +518,7 @@ def isID (arg,posval):
 
     print('Inside isID getting value')
     key, value = getKeyValue(arg[posval])
-    print('Inside isID key is '+key+' Value is '+value)
+    print('Inside isID key is@@@@@ '+key+' @@@@@Value is@@@@@ '+value+' @@@@@@@')
     
     print('Inside isID check key')   
     if key == 'IDENTIFIER' or key == 'KEYWORD' or key == 'FLOAT' or key == 'INT':
@@ -506,4 +533,4 @@ def isID (arg,posval):
 
     print('Inside isID returning result')
     if isresult:
-        return isresult,result,count
+        return isresult,result,count,newpos
