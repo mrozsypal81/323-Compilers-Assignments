@@ -71,7 +71,8 @@ def checkAllRules(arg, begin):
         if isAss:
             count += AddCount
             return isAss, resultAssign, count
-
+            
+    print("Going into isExpress in CheckAllRules")
     isExp, resultExpress, AddCount = isExpress(templist,0)
 
     if isExp:
