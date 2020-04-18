@@ -214,7 +214,7 @@ def isExpress(arg,posval):
 
     if pvalue == '+':
         print("Inside Expression +")
-        isExp, resultExpress, AddCount = isExpress (arg, pluspos+2)
+        isExp, resultExpress, AddCount = isExpress (arg, pluspos+1)
         
         if isExp:
             isresult = isExp
@@ -227,10 +227,10 @@ def isExpress(arg,posval):
 
             })
         else:
-            print('Expression Error at lexeme '+ pluspos-1)
+            print('Expression Error at lexeme '+ pluspos)
         
         print("Inside Expression + term")
-        isTe, resultTerm, AddCount = isTerm (arg,pluspos+2)
+        isTe, resultTerm, AddCount = isTerm (arg,pluspos+1)
         
         if isTe:
             isresult = isTe
@@ -242,7 +242,7 @@ def isExpress(arg,posval):
 
     if mvalue == '-':
         print("Inside Expression -")
-        isExp, resultExpress, AddCount = isExpress (arg, minuspos+2)
+        isExp, resultExpress, AddCount = isExpress (arg, minuspos+1)
         
         if isExp:
             isresult = isExp
@@ -259,7 +259,7 @@ def isExpress(arg,posval):
 
         print("Inside Expression - term")
 
-        isTe, resultTerm, AddCount = isTerm (arg,minuspos+2)
+        isTe, resultTerm, AddCount = isTerm (arg,minuspos+1)
         
         if isTe:
             isresult = isTe
@@ -287,55 +287,62 @@ def isExpress(arg,posval):
 def isTerm(arg,posval):
     #print('Inside isTerm')
 
-    
+    count = 0
     result = []
     isresult = False
+
+    skey,svalue,starpos = getSpecificKV(arg,'*',posval)
+    dkey,dvalue, divpos = getSpecificKV(arg,'/',posval)
 
     #key, value , starval = getSpecificKVreverse(arg,'*',posval)
     #key2, value2 , divVal = getSpecificKVreverse(arg,'/',posval)
 
 
-    if value == '*':
-        isTe, resultTerm, newbegin = isTerm (arg, begin ,starval-1)
+    if svalue == '*':
+        #may have to rethink the positioning of the start of the next isterm same with isexpression
+        #it does not know when to stop running 
+        isTe, resultTerm, AddCount = isTerm (arg,starpos+1)
         
         if isTe:
             isresult = isTe
+            count += (AddCount + 1)
             result.extend(resultTerm)
             result.append( {
-                'Token': key,
-                'Lexeme': value,
+                'Token': skey,
+                'Lexeme': svalue,
                 'Grammar': '<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>'
 
             })
         else:
-            print('Term Error at lexeme '+ begin)
+            print('Term Error at lexeme '+ starpos)
 
-        isFac, resultFac, newbegin = isFactor (arg,starval+1,posval)
+        isFac, resultFac, AddCount = isFactor (arg,starpos+1)
         
         if isFac:
             isresult = isFac
-            begin = newbegin + 1
+            count += AddCount
             result.extend(resultFac)
         else:
-            print('Term Error at lexeme '+ begin)
+            print('Term Error at lexeme '+ starpos)
 
 
-    if value2 == '/':
-        isTe, resultTerm, newbegin = isTerm (arg, begin ,divVal-1)
+    if dvalue == '/':
+        isTe, resultTerm, newbegin = isTerm (arg,divpos+1)
         
         if isTe:
             isresult = isTe
+            count += (AddCount + 1)
             result.extend(resultTerm)
             result.append( {
-                'Token': key2,
-                'Lexeme': value2,
+                'Token': dkey,
+                'Lexeme': dvalue,
                 'Grammar': '<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>'
 
             })
         else:
-            print('Term Error at lexeme '+ begin)
+            print('Term Error at lexeme '+ divpos)
 
-        isFac, resultFac, newbegin = isFactor (arg,divVal+1,posval)
+        isFac, resultFac, newbegin = isFactor (arg,divpos+1)
         
         if isFac:
             isresult = isFac
