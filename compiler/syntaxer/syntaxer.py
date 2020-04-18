@@ -202,86 +202,112 @@ def isExpress(arg,posval):
     #print("Inside Expression")
 
     count = 0
+
+    isresult = False
+    
+    result = []
+
+    print("Going into isTerm")
+    isTe, resultTerm, AddCount = isTerm (arg,posval)
+        
+    if isTe:
+        isresult = isTe
+        count += AddCount
+        result.extend(resultTerm)
+    else:
+        print('Expression Error at lexeme '+ posval)
+
+    print("Going into isExpressPrime")
+    isExp, resultExpress, AddCount = isExpressPrime (arg, posval)
+        
+    if isExp:
+        isresult = isExp
+        result.extend(resultExpress)
+        count += AddCount
+    else:
+        print('Expression Error at lexeme '+ posval)
+
+    if isresult:
+        return isresult,result,count
+        
+def isExpressPrime(arg,posval):
+    print("Inside isExpressPrime")
+    count = 0
     result = []
     isresult = False
     
     pkey,pvalue,pluspos = getSpecificKV(arg,'+',posval)
     mkey,mvalue, minuspos = getSpecificKV(arg,'-',posval)
 
-    #key, value , plusval = getSpecificKVreverse(arg,'+',posval)
-    #key2, value2 , minusval = getSpecificKVreverse(arg,'-',posval)
-
 
     if pvalue == '+':
-        print("Inside Expression +")
+        print("Inside Express + appending to result")
+
+        result.append( {
+            'Token': pkey,
+            'Lexeme': pvalue,
+            'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
+        })
+
+        print("Inside ExpressPrime + going into Term")
+        isTe, resultTerm, AddCount = isTerm (arg,pluspos+1)
+        
+        if isTe:
+            isresult = isTe
+            #the plus 1 is for the added operator above
+            count += (AddCount + 1)
+            result.extend(resultTerm)
+        else:
+            print('Expression Error at lexeme '+ pluspos)
+
+        print("Inside ExpressPrime + going into ExpressPrime")
         isExp, resultExpress, AddCount = isExpress (arg, pluspos+1)
         
         if isExp:
             isresult = isExp
             result.extend(resultExpress)
-            count += (AddCount + 1)
-            result.append( {
-                'Token': pkey,
-                'Lexeme': pvalue,
-                'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
-
-            })
-        else:
-            print('Expression Error at lexeme '+ pluspos)
-        
-        print("Inside Expression + term")
-        isTe, resultTerm, AddCount = isTerm (arg,pluspos+1)
-        
-        if isTe:
-            isresult = isTe
             count += AddCount
-            result.extend(resultTerm)
         else:
             print('Expression Error at lexeme '+ pluspos)
-
-
-    if mvalue == '-':
-        print("Inside Expression -")
-        isExp, resultExpress, AddCount = isExpress (arg, minuspos+1)
         
-        if isExp:
-            isresult = isExp
-            count += (AddCount + 1)
-            result.extend(resultExpress)
-            result.append( {
-                'Token': mkey,
-                'Lexeme': mvalue,
-                'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
+    if pvalue == '-':
+        print("Inside Express - appending to result")
 
-            })
-        else:
-            print('Expression Error at lexeme '+ minuspos)
+        result.append( {
+            'Token': mkey,
+            'Lexeme': mvalue,
+            'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
+        })
 
-        print("Inside Expression - term")
-
+        print("Inside ExpressPrime - going into Term")
         isTe, resultTerm, AddCount = isTerm (arg,minuspos+1)
         
         if isTe:
             isresult = isTe
-            count += AddCount
+            #the plus 1 is for the added operator above
+            count += (AddCount + 1)
             result.extend(resultTerm)
         else:
             print('Expression Error at lexeme '+ minuspos)
 
-    if pvalue == None and mvalue == None:
-        print("Inside Expression term")
-        isTe, resultTerm, AddCount = isTerm (arg,posval)
+        print("Inside ExpressPrime + going into ExpressPrime")
+        isExp, resultExpress, AddCount = isExpress (arg, minuspos+1)
         
-        if isTe:
-            isresult = isTe
+        if isExp:
+            isresult = isExp
+            result.extend(resultExpress)
             count += AddCount
-            result.extend(resultTerm)
         else:
-            print('Expression Error at lexeme '+ posval)
+            print('Expression Error at lexeme '+ minuspos)
+
+    if pvalue == None and mvalue == None:
+        print("Inside ExpressPrime Epsilon")
+
+        return True,result,count
+        
     
     if isresult:
         return isresult,result,count
-
 
 #<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>
 def isTerm(arg,posval):
@@ -364,10 +390,11 @@ def isTerm(arg,posval):
     
     if isresult:
         return isresult,result,begin
-
+def isTermPrime(arg,posval):
+    print("Inside isTermPrime")
 
 #<Factor> -> ( <Expression> ) | <ID> | <num> 
-def isFactor (arg,begin,posval):
+def isFactor (arg,posval):
     print('Inside isFactor')
 
 
@@ -417,7 +444,7 @@ def isFactor (arg,begin,posval):
         return isresult,result,begin
 
 #<ID> -> id
-def isID (arg,begin,posval):
+def isID (arg,posval):
     print('Inside isID')
 
     result = []
