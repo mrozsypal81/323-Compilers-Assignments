@@ -72,10 +72,11 @@ def checkAllRules(arg, begin):
             count += AddCount
             return isAss, resultAssign, count
 
-        # isExp, resultExpress, newbegin = isExpress (arg, begin,begin)
-        
-        # if isExp:
-        #     return isExp,resultExpress,newbegin
+    isExp, resultExpress, AddCount = isExpress(templist,0)
+
+    if isExp:
+        count += AddCount
+        return isExp,resultExpress,count
 
     print('End of CheckAllRules')
     return False,[],-1
