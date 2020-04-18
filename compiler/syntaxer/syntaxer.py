@@ -16,6 +16,7 @@ class Syntaxer (object):
 
             isCheck, result, newBegin = checkAllRules(lexemes, begin)
 
+            print('Returned from CheckAllRules')
 
             print('isCheck = ', isCheck)
             for i in result:
@@ -25,7 +26,7 @@ class Syntaxer (object):
             print('\n\n')
 
 
-        print('after while')
+        print('Done with all Lexemes')
      
 
 # ==============================================
@@ -37,25 +38,40 @@ def checkAllRules(arg, begin):
     availableLen = len(arg) - begin
     print('availableLen = ', availableLen)
 
-    isDeclare, resultDeclare, newBeginDeclare = isDeclarative (arg, begin)
+    #This returns the next semicolon position so that you can tell where to end
+    print("Begin value")
+    print(begin)
+    semicolkey,semicolval,semicolpos = getSpecificKV(arg,";",begin)
+    templist = arg[begin:semicolpos+1]
 
-    if isDeclare:
-        newBeginDeclare = begin + 3
-        return isDeclare, resultDeclare, newBeginDeclare
+    print("++++++++++++++++++++templist++++++++++++++++")
+    print(templist)
+    print("++++++++++++++++++++after templist++++++++++++++++")
 
+    #testkey,testval,testpos = getSpecificKVreverse(arg,"+",semicolpos)
 
-    isAss, resultAssign, newBeginAssign = isAssign (arg, begin)
+    if len(templist) == 3: 
+        isDeclare, resultDeclare = isDeclarative (templist)
 
-    if isAss:
-        return isAss, resultAssign, newBeginAssign
+        if isDeclare:
+            newBeginDeclare = begin + 3
+            return isDeclare, resultDeclare, newBeginDeclare
 
-    else:
-        print ('Something go wrong1')
+    
+        # isAss, resultAssign, newBeginAssign = isAssign (arg, begin)
 
-        begin = 99999999999999999
-        return -1, -2, begin
+        # if isAss:
+        #     return isAss, resultAssign, newBeginAssign
 
+        # isExp, resultExpress, newbegin = isExpress (arg, begin,begin)
+        
+        # if isExp:
+        #     return isExp,resultExpress,newbegin
 
+    print('End of CheckAllRules')
+    return False,[],-1
+
+# x + y = z;
 
 def getKeyValue (mydict):
     for key, value in mydict.items():
@@ -65,32 +81,45 @@ def getSpecificKV (arg,myvalue,beginval):
     positionval = beginval
     for x in arg[beginval:]:   
         for key,value in x.items():
+            print("Next in specific function")
+            print(key,value,positionval)
+            print("++++++++++++++++++++++++++++++++++++++")
             if value == myvalue :
+                print("Match in specific function")
+                print(key,value,positionval)
+                print("++++++++++++++++++++++++++++++++++++++")
                 return key,value,positionval
         positionval = positionval + 1
     return None,None,-1
 
-def getSpecificKVreverse (arg,myvalue,beginval):
-    positionval = beginval
-    for x in  arg[beginval::-1]:  
-        for key,value in x.items():
-            if value == myvalue :
-                return key,value,positionval
-        positionval = positionval - 1
-    return None,None,-1
+# def getSpecificKVreverse (arg,myvalue,beginval):
+#     positionval = 0
+#     reversedlist = 
+#     for i,x in reversed(list(enumerate(arg[beginval:]))):  
+#         for key,value in x.items():
+#             print("Next in reverse function")
+#             print(key,value,i)
+#             print("++++++++++++++++++++++++++++++++++++++")
+#             if value == myvalue :
+#                 print("found Value")
+#                 print(key,value,i)
+#                 print("++++++++++++++++++++++++++++++++++++++")
+#                 positionval = i
+#                 return key,value,positionval
+#     return None,None,-1
         
 
-
-#       Example : int a
+#                   0 1 2  3 4 5  6  7 8
+#       Example : int a; int b; int x ;
 #<Statement> -> <Declarative>
 #<Declarative> -> <Type> <id>;
-def isDeclarative (arg, begin):
+def isDeclarative (arg):
     myType = ['int', 'float', 'bool']
-    print()
+    print('Inside isDeclarative')
 
-    key0, value0 = getKeyValue(arg[begin])
-    key1, value1 = getKeyValue(arg[begin + 1])
-    key2, value2 = getKeyValue(arg[begin + 2])
+    key0, value0 = getKeyValue(arg[0])
+    key1, value1 = getKeyValue(arg[1])
+    key2, value2 = getKeyValue(arg[2])
 
     if (value0 in myType) and key1 == 'IDENTIFIER' and value2 == ';':
         result = []
@@ -112,7 +141,7 @@ def isDeclarative (arg, begin):
             'Grammar': '<Statement> -> <Declarative>' 
                         '<Declarative> -> <Type> <id>;'
         })
-        return True, result, begin
+        return True, result
     else:
         return False, -1, 999999999999
   
@@ -161,21 +190,24 @@ def isAssign(arg, begin):
 
         return isExp, result, begin
     else:
-        print('Assign Error at lexeme '+ begin)
+        print('Assign Error at lexeme ', begin)
         return False, -1, 999999999999
 
 #<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>
 def isExpress(arg,begin,posval):
-    print("Inside Expression")
+    #print("Inside Expression")
 
     result = []
     isresult = False
+    
+    pkey,pvalue,posval = getSpecificKV(arg,';',begin)
 
-    key, value , plusval = getSpecificKVreverse(arg,'+',posval)
-    key2, value2 , minusval = getSpecificKVreverse(arg,'-',posval)
+    #key, value , plusval = getSpecificKVreverse(arg,'+',posval)
+    #key2, value2 , minusval = getSpecificKVreverse(arg,'-',posval)
 
 
     if value == '+':
+        print("Inside Expression +")
         isExp, resultExpress, newbegin = isExpress (arg, begin ,plusval-1)
         
         if isExp:
@@ -190,17 +222,19 @@ def isExpress(arg,begin,posval):
         else:
             print('Expression Error at lexeme '+ begin)
 
+        print("Inside Expression + term")
         isTe, resultTerm, newbegin = isTerm (arg,plusval+1,posval)
         
         if isTe:
             isresult = isTe
-            begin = newbegin + 1
+            begin = newbegin
             result.extend(resultTerm)
         else:
             print('Expression Error at lexeme '+ begin)
 
 
     if value2 == '-':
+        print("Inside Expression -")
         isExp, resultExpress, newbegin = isExpress (arg, begin ,minusval-1)
         
         if isExp:
@@ -215,6 +249,8 @@ def isExpress(arg,begin,posval):
         else:
             print('Expression Error at lexeme '+ begin)
 
+        print("Inside Expression - term")
+
         isTe, resultTerm, newbegin = isTerm (arg,minusval+1,posval)
         
         if isTe:
@@ -225,6 +261,7 @@ def isExpress(arg,begin,posval):
             print('Expression Error at lexeme '+ begin)
 
     if value == None and value2 == None:
+        print("Inside Expression term")
         isTe, resultTerm, newbegin = isTerm (arg,begin,posval)
         
         if isTe:
@@ -240,14 +277,14 @@ def isExpress(arg,begin,posval):
 
 #<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>
 def isTerm(arg,begin,posval):
-    print('Inside isTerm')
+    #print('Inside isTerm')
 
     
     result = []
     isresult = False
 
-    key, value , starval = getSpecificKVreverse(arg,'*',posval)
-    key2, value2 , divVal = getSpecificKVreverse(arg,'/',posval)
+    #key, value , starval = getSpecificKVreverse(arg,'*',posval)
+    #key2, value2 , divVal = getSpecificKVreverse(arg,'/',posval)
 
 
     if value == '*':
@@ -323,7 +360,7 @@ def isFactor (arg,begin,posval):
     isresult = False
 
     key, value , forwardparenval = getSpecificKV(arg,'(',begin)
-    key2, value2 , backwardparenval = getSpecificKVreverse(arg,')',posval)
+    #key2, value2 , backwardparenval = getSpecificKVreverse(arg,')',posval)
 
     if value == '(' and value2 == ')':
         isExp, resultExpress, newbegin = isExpress (arg, forwardparenval + 1,backwardparenval)
