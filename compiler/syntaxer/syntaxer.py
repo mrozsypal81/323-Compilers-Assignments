@@ -57,6 +57,9 @@ def checkAllRules(arg, begin):
             newBeginDeclare = begin + 3
             return isDeclare, resultDeclare, newBeginDeclare
 
+    eqkey,eqval = getKeyValue(templist)
+    
+    if eqval == "=":
     
         isAss, resultAssign, newBeginAssign = isAssign (arg)
 
@@ -202,8 +205,8 @@ def isExpress(arg,posval):
     result = []
     isresult = False
     
-    pkey,pvalue,plusval = getSpecificKV(arg,'+',posval)
-    mkey,mvalue, minusval = getSpecificKV(arg,'-',posval)
+    pkey,pvalue,pluspos = getSpecificKV(arg,'+',posval)
+    mkey,mvalue, minuspos = getSpecificKV(arg,'-',posval)
 
     #key, value , plusval = getSpecificKVreverse(arg,'+',posval)
     #key2, value2 , minusval = getSpecificKVreverse(arg,'-',posval)
@@ -211,7 +214,7 @@ def isExpress(arg,posval):
 
     if pvalue == '+':
         print("Inside Expression +")
-        isExp, resultExpress, AddCount = isExpress (arg, plusval+2)
+        isExp, resultExpress, AddCount = isExpress (arg, pluspos+2)
         
         if isExp:
             isresult = isExp
@@ -224,63 +227,64 @@ def isExpress(arg,posval):
 
             })
         else:
-            print('Expression Error at lexeme '+ plusval-1)
+            print('Expression Error at lexeme '+ pluspos-1)
         
         print("Inside Expression + term")
-        isTe, resultTerm, newbegin = isTerm (arg,plusval+2,posval)
+        isTe, resultTerm, AddCount = isTerm (arg,pluspos+2)
         
         if isTe:
             isresult = isTe
-            begin = newbegin
+            count += AddCount
             result.extend(resultTerm)
         else:
-            print('Expression Error at lexeme '+ begin)
+            print('Expression Error at lexeme '+ pluspos)
 
 
-    if value2 == '-':
+    if mvalue == '-':
         print("Inside Expression -")
-        isExp, resultExpress, newbegin = isExpress (arg, begin ,minusval-1)
+        isExp, resultExpress, AddCount = isExpress (arg, minuspos+2)
         
         if isExp:
             isresult = isExp
+            count += (AddCount + 1)
             result.extend(resultExpress)
             result.append( {
-                'Token': key2,
-                'Lexeme': value2,
+                'Token': mkey,
+                'Lexeme': mvalue,
                 'Grammar': '<Expression> -> <Expression> + <Term> | <Expression> - <Term> | <Term>'
 
             })
         else:
-            print('Expression Error at lexeme '+ begin)
+            print('Expression Error at lexeme '+ minuspos)
 
         print("Inside Expression - term")
 
-        isTe, resultTerm, newbegin = isTerm (arg,minusval+1,posval)
+        isTe, resultTerm, AddCount = isTerm (arg,minuspos+2)
         
         if isTe:
             isresult = isTe
-            begin = newbegin + 1
+            count += AddCount
             result.extend(resultTerm)
         else:
-            print('Expression Error at lexeme '+ begin)
+            print('Expression Error at lexeme '+ minuspos)
 
-    if value == None and value2 == None:
+    if pvalue == None and mvalue == None:
         print("Inside Expression term")
-        isTe, resultTerm, newbegin = isTerm (arg,begin,posval)
+        isTe, resultTerm, AddCount = isTerm (arg,posval)
         
         if isTe:
             isresult = isTe
-            begin = newbegin
+            count += AddCount
             result.extend(resultTerm)
         else:
-            print('Expression Error at lexeme '+ begin)
+            print('Expression Error at lexeme '+ posval)
     
     if isresult:
-        return isresult,result,begin
+        return isresult,result,count
 
 
 #<Term> -> <Term> * <Factor> | <Term> / <Factor> | <Factor>
-def isTerm(arg,begin,posval):
+def isTerm(arg,posval):
     #print('Inside isTerm')
 
     
