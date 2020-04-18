@@ -301,6 +301,7 @@ def isTerm(arg,posval):
     if svalue == '*':
         #may have to rethink the positioning of the start of the next isterm same with isexpression
         #it does not know when to stop running 
+        # H = x + y + z + t;
         isTe, resultTerm, AddCount = isTerm (arg,starpos+1)
         
         if isTe:
