@@ -34,7 +34,7 @@ class Syntaxer (object):
 # ==============================================
 
 def checkAllRules(arg, begin):
-
+    count = begin
     availableLen = len(arg) - begin
     print('availableLen = ', availableLen)
 
@@ -57,8 +57,8 @@ def checkAllRules(arg, begin):
         isDeclare, resultDeclare = isDeclarative (templist)
 
         if isDeclare:
-            newBeginDeclare = begin + 3
-            return isDeclare, resultDeclare, newBeginDeclare
+            count = begin + 3
+            return isDeclare, resultDeclare, count
 
     eqkey,eqval,eqpos = getSpecificKV(templist,"=",0)
     
@@ -66,10 +66,11 @@ def checkAllRules(arg, begin):
     if eqval == "=":
     
         print("Going into isAssign in CheckAllRules")
-        isAss, resultAssign, newBeginAssign = isAssign (templist)
+        isAss, resultAssign, AddCount = isAssign (templist)
 
         if isAss:
-            return isAss, resultAssign, newBeginAssign
+            count += AddCount
+            return isAss, resultAssign, count
 
         # isExp, resultExpress, newbegin = isExpress (arg, begin,begin)
         
@@ -488,9 +489,11 @@ def isID (arg,posval):
 
     print('Inside isID getting value')
     key, value = getKeyValue(arg[posval])
+    print('Inside isID key is '+key+' Value is '+value)
     
     print('Inside isID check key')   
     if key == 'IDENTIFIER' or key == 'KEYWORD' or key == 'FLOAT' or key == 'INT':
+        print('Inside isID check key was true') 
         isresult = True
         result.append( {
                 'Token': key,
