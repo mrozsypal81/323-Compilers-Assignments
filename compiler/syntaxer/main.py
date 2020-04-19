@@ -101,8 +101,29 @@ def main():
     # ===============================================
     
     syntax = Syntaxer (lexeme)
-    syntax.syntaxer()
+    mySyntax = syntax.syntaxer()
+    
+    print('mySyntax ======================================')
+    print(mySyntax)
 
+
+    output = open('outputSyntaxer.txt', 'a')
+    print('#' * 30)
+
+    output.write('\n\n')
+    output.write('===============================================\n')
+    output.write('Output Syntaxer file start here\n')
+    output.write('This part is added to separate every time compile if output file is not deleted\n')
+    output.write('===============================================\n')
+    output.write('\n\n')
+    
+    for i in mySyntax:
+        for x in i:
+            for key,value in x.items():
+                output.write(f'{key:<12} = \t{value}\n')
+            output.write('\n')
+
+    print('#' * 30)
 
 
 

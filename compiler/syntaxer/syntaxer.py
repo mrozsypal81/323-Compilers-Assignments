@@ -7,6 +7,7 @@ class Syntaxer (object):
     def syntaxer(self):
         lexemes = list(self.lexemes[0])
         begin = 0
+        resultlist = []
 
         print('len(lexemes) = ', len(lexemes))
 
@@ -18,6 +19,7 @@ class Syntaxer (object):
 
             print('Returned from CheckAllRules')
 
+            resultlist.append(result)
             print('isCheck = ', isCheck)
             for i in result:
                 print(i)
@@ -27,6 +29,7 @@ class Syntaxer (object):
 
 
         print('Done with all Lexemes')
+        return resultlist
      
 
 # ==============================================
