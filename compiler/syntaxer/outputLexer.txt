@@ -448,3 +448,167 @@ IDENTIFIER   = 	a
 OPERATOR     = 	+
 IDENTIFIER   = 	b
 SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+OPERATOR     = 	/
+IDENTIFIER   = 	c
+OPERATOR     = 	*
+IDENTIFIER   = 	d
+OPERATOR     = 	/
+IDENTIFIER   = 	e
+OPERATOR     = 	*
+IDENTIFIER   = 	g
+OPERATOR     = 	+
+IDENTIFIER   = 	f
+OPERATOR     = 	-
+IDENTIFIER   = 	h
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	/
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+OPERATOR     = 	/
+IDENTIFIER   = 	c
+OPERATOR     = 	*
+IDENTIFIER   = 	d
+OPERATOR     = 	/
+IDENTIFIER   = 	e
+OPERATOR     = 	*
+IDENTIFIER   = 	g
+OPERATOR     = 	+
+IDENTIFIER   = 	f
+OPERATOR     = 	-
+IDENTIFIER   = 	h
+OPERATOR     = 	+
+IDENTIFIER   = 	i
+OPERATOR     = 	-
+IDENTIFIER   = 	j
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	/
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+
+
+===============================================
+Output file start here
+This part is added to separate every time compile if output file is not deleted
+===============================================
+
+
+TOKEN 			LEXEME
+
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+OPERATOR     = 	/
+IDENTIFIER   = 	c
+OPERATOR     = 	*
+IDENTIFIER   = 	d
+OPERATOR     = 	/
+IDENTIFIER   = 	e
+OPERATOR     = 	*
+IDENTIFIER   = 	g
+OPERATOR     = 	+
+IDENTIFIER   = 	f
+OPERATOR     = 	-
+IDENTIFIER   = 	h
+OPERATOR     = 	+
+IDENTIFIER   = 	i
+OPERATOR     = 	-
+IDENTIFIER   = 	j
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	+
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	*
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	-
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
+IDENTIFIER   = 	x
+OPERATOR     = 	=
+IDENTIFIER   = 	a
+OPERATOR     = 	/
+IDENTIFIER   = 	b
+SEPARATOR    = 	;
